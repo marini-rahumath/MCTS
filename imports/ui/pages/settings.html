@@ -1,0 +1,463 @@
+<template name="Settings">
+    <div class="content">
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel}}
+                    <div class="row border-bottom">
+                        <div class="col-lg-12 m-t-xs m-b-xs">
+                            <div class="col-sm-2">
+                                <h5 class="text-center">TLE Status:</h5>
+                            </div>
+                            <div class="col-sm-4">
+                                <h5 class="text-center"> {{updateresponse}} </h5>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="update-tle-network-manual-start btn btn-info btn-block m-b-xs" data-toggle="modal" data-target="#modalManualAdd">
+                                    Update TLE Manually</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="update-tle-network btn btn-info btn-block m-b-xs"> Update All TLE</button>
+                            </div>
+                            <div class="col-sm-2">
+                                <button type="button" class="btn btn-info btn-block m-b-xs" data-toggle="modal" data-target="#modalConfigRate">
+                                    Configure rate
+                                </button>
+                            </div>
+
+                            <!--Modal for manual adding TLE (pop-up box) */-->
+                            <div class="col-sm-2 col-xs-3">
+                                <div class="modal fade" id="modalManualAdd" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="color-line"></div>
+                                            <div class="modal-header text-center">
+                                                <h4 class="modal-title"> Add TLE manually </h4>
+                                                <small class="font-bold">
+                                                </small>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+                                                    <div class="col-xs-12">
+                                                        <div class="form-group">
+                                                            <label for="satnamem"> Name of Satellite: (line 0)</label>
+                                                            <input type="text" class="form-control" id="satnamem" maxlength="100">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tleline1m"> TLE line 1:</label>
+                                                            <input type="text" class="form-control" id="tleline1m" maxlength="300">
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="tleline2m"> TLE line 2</label>
+                                                            <input type="text" class="form-control" id="tleline2m" maxlength="300">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary update-tle-network-manual" data-dismiss="modal">Save</button>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--/* Modal for configure rate (pop-up box) */-->
+                            <div class="col-sm-2 col-xs-3">
+                                <div class="modal fade" id="modalConfigRate" tabindex="-1" role="dialog" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="color-line"></div>
+                                            <div class="modal-header text-center">
+                                                <h4 class="modal-title"> Configure rate of TLE update </h4>
+                                                <small class="font-bold">
+                                                </small>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div class="row">
+
+                                                    <div class="col-md-12 m-t-md">
+                                                        <div class="m-t-xs"></div>
+                                                        <label>Every: </label>
+                                                        <select class="form-control" id="TLEratelength">
+                                                            <option>hour</option>
+                                                            <option>day</option>
+                                                            <option>week</option>
+                                                            <option>month</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                                </button>
+                                                <button type="button" class="btn btn-primary tle-rate" data-dismiss="modal">Save</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="row m-t-sm">
+                        <div class="col-lg-12">
+                            <div class="col-sm-2">
+                                <h5 class="text-center">Current Setting:</h5>
+                            </div>
+                            <div class="col-sm-5 col-xs-6 border-right">
+                                <h5 class="text-center">{{displayLocation}}</h5>
+                            </div>
+                            <div class="col-sm-5 col-xs-6">
+                                <h5 class="text-center">{{displaySatGrp}}</h5>
+                            </div>
+                        </div>
+                    </div>
+                {{/panel}}
+            </div>
+        </div>
+
+        <!-- Settings for location and satellite groups -->
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel}}
+
+                    <!--Dropdown list of locations-->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="selectLoc"> Location: </label>
+                            <select class="form-control" id="selectLoc">
+                                {{#each location in listLocations}}
+                                    <option value="{{location._id}}"> {{location.display}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--Dropdown list of satellite groups-->
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label for="selectSatGrp"> Satellite Groups: </label>
+                            <select class="form-control" id="selectSatGrp">
+                                {{#each group in listSatGroups}}
+                                    <option value="{{group._id}}"> {{group.name}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+
+                    <!--'Set' Button-->
+                    <div class="col-sm-4">
+                        <label>  </label>
+                        <button class="btn btn-info btn-block set-info m-t-xs"> Set </button>
+                    </div>
+
+                    <!--Dropdown list of email preferences-->
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="selectEmailGrp"> Satellite Group To Email: </label>
+                            <select class="form-control" id="selectEmailGrp">
+                                {{#each group in listEmailOptions}}
+                                    <option value="{{group._id}}"> {{group.name}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+
+                    </div>
+                {{/panel}}
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel}}
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="location"> Location list: </label>
+                            <select size="10" multiple="false" class="form-control" id="location">
+                                <!-- data appended by jquery -->
+                                {{#each location in listLocations}}
+                                    <option value="{{location._id}}"> {{location.display}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <!-- Add location -->
+                        <label></label>
+                        <button type="button" class="btn btn-info btn-block m-t-xs" data-toggle="modal" data-target="#modalAdd">
+                            Add
+                        </button>
+                        <div class="modal fade" id="modalAdd" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="color-line"></div>
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title"> New Location </h4>
+                                        <small class="font-bold">
+                                        </small>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="locname"> Name:</label>
+                                                    <input type="text" class="form-control" id="locname" maxlength="25">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="locdesc"> Description:</label>
+                                                    <input type="text" class="form-control" id="locdesc" maxlength="50">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="latitude"> Latitude:</label>
+                                                    <input type="text" class="form-control" id="latitude" maxlength="10">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="longtitude"> Longtitude:</label>
+                                                    <input type="text" class="form-control" id="longtitude" maxlength="10">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <label for="findlocation1"> Location:</label>
+                                                            <input type="text" class="form-control" id="findlocation1">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 m-t-md">
+                                                        <div class="m-t-xs"></div>
+                                                        <label></label>
+                                                        <button class="btn btn-info get-location1"> GO </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary add-location" data-dismiss="modal">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Update location -->
+                        <label></label>
+                        <button type="button" class="btn btn-info btn-block update-location-before" data-toggle="modal" data-target="#modalUpdate">
+                            Update
+                        </button>
+                        <div class="modal fade" id="modalUpdate" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="color-line"></div>
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title"> Update Location </h4>
+                                        <small class="font-bold">
+                                        </small>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-xs-12">
+                                                <div class="form-group">
+                                                    <label for="locname2"> Name:</label>
+                                                    <input type="text" class="form-control" id="locname2" maxlength="25">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="locdesc2"> Description:</label>
+                                                    <input type="text" class="form-control" id="locdesc2" maxlength="50">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="latitude2"> Latitude:</label>
+                                                    <input type="text" class="form-control" id="latitude2" maxlength="10">
+                                                </div>
+                                                <div class="form-group">
+                                                    <label for="longtitude2"> Longtitude:</label>
+                                                    <input type="text" class="form-control" id="longtitude2" maxlength="10">
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-10">
+                                                        <div class="form-group">
+                                                            <label for="findlocation2"> Location:</label>
+                                                            <input type="text" class="form-control" id="findlocation2">
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-2 m-t-md">
+                                                        <div class="m-t-xs"></div>
+                                                        <label></label>
+                                                        <button class="btn btn-info get-location2"> GO </button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary update-location-after" data-dismiss="modal">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Remove location -->
+                        <label></label>
+                        <button type="button" class="btn btn-info btn-block remove-location">
+                            Remove
+                        </button>
+                    </div>
+                {{/panel}}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel}}
+                    <div class="col-sm-8">
+                        <div class="form-group">
+                            <label for="satgroup"> Satellite Groups: </label>
+                            <select size="10" multiple="false" class="form-control" id="satgroup">
+                                <!-- data appended by jquery -->
+                                {{#each group in listSatGroups}}
+                                    <option value="{{group._id}}"> {{group.name}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <label></label>
+                        <button type="button" class="btn btn-info btn-block m-t-xs" data-toggle="modal" data-target="#modalAddSat">
+                            Add
+                        </button>
+                        <div class="modal fade" id="modalAddSat" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="color-line"></div>
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title"> Add Satellite Group </h4>
+                                        <small class="font-bold">
+                                        </small>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="set1"> Satellite list: {{countset1}} </label>
+                                                    <select size="20" multiple="true" class="form-control" id="set1">
+                                                        <!-- Default insert when template loads -->
+                                                        {{#each satellite in listSatellites}}
+                                                            <option value={{satellite._id}}> {{satellite.name}} </option>
+                                                        {{/each}}
+                                                        <!-- data appended by jquery -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="set2"> Selected list: {{countset2}} </label>
+                                                    <select size="20" multiple="true" class="form-control" id="set2">
+                                                        <!-- data appended by jquery -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="satgroupname"> Satellite Group name:</label>
+                                                    <input type="text" class="form-control" id="satgroupname" maxlength="15">
+                                                </div>
+                                                <label></label>
+                                                <button type="button" class="btn btn-info btn-block add-options">
+                                                    Add
+                                                </button>
+                                                <label></label>
+                                                <button type="button" class="btn btn-info btn-block remove-options">
+                                                    Remove
+                                                </button>
+                                                <label></label>
+                                                <button type="button" class="btn btn-info btn-block reset-options">
+                                                    Reset
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary add-group" data-dismiss="modal">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label></label>
+                        <button type="button" class="btn btn-info btn-block update-satgroup-before" data-toggle="modal" data-target="#modalUpdateSat">
+                            Update
+                        </button>
+                        <div class="modal fade" id="modalUpdateSat" tabindex="-1" role="dialog" aria-hidden="true">
+                            <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                    <div class="color-line"></div>
+                                    <div class="modal-header text-center">
+                                        <h4 class="modal-title"> Update Satellite Group </h4>
+                                        <small class="font-bold">
+                                        </small>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="row">
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="set3"> Satellite list: {{countset3}} </label>
+                                                    <select size="20" multiple="true" class="form-control" id="set3">
+                                                        <!-- Default insert when template loads -->
+                                                        {{#each satellite in listSatellites2}}
+                                                            <option value={{satellite._id}}> {{satellite.name}} </option>
+                                                        {{/each}}
+                                                        <!-- data appended by jquery -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="set4"> Selected list: {{countset4}} </label>
+                                                    <select size="20" multiple="true" class="form-control" id="set4">
+                                                        <!-- data appended by jquery -->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-4">
+                                                <div class="form-group">
+                                                    <label for="satgroupname2"> Satellite Group name:</label>
+                                                    <input type="text" class="form-control" id="satgroupname2" maxlength="15">
+                                                </div>
+                                                <label></label>
+                                                <button type="button" class="btn btn-info btn-block add-options2">
+                                                    Add
+                                                </button>
+                                                <label></label>
+                                                <button type="button" class="btn btn-info btn-block remove-options2">
+                                                    Remove
+                                                </button>
+                                                <label></label>
+                                                <button type="button" class="btn btn-info btn-block reset-options2">
+                                                    Reset
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="button" class="btn btn-primary update-satgroup-after" data-dismiss="modal">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label></label>
+                        <button type="button" class="btn btn-info btn-block remove-group">
+                            Remove
+                        </button>
+                    </div>
+                {{/panel}}
+            </div>
+        </div>
+    </div>
+</template>

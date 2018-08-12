@@ -1,0 +1,1054 @@
+<!--TNC Main-->
+
+<template name="tncTest2">
+	<div class="content">
+		<div class="row">
+			<div class="col-lg-12">
+				<div class="hpanel">
+
+					<ul class="nav nav-tabs">
+						<li class="active"><a data-toggle="tab" href="#tab-1" aria-expanded="true"> Terminal </a></li>
+						<li class=""><a data-toggle="tab" href="#tab-2" aria-expanded="false"> Rotor Settings </a></li>
+					</ul>
+					<div class="tab-content">
+						<div id="tab-1" class="tab-pane active">
+							<div class="panel-body no-padding">
+								<div class="col-lg-12 col-xs-12">
+
+									<div class="row border-top border-bottom">
+										<div class="col-xs-6">
+											<h3><b>CSP-Term Log</b></h3>
+										</div>
+										<div class="col-xs-3">
+											<button class="btn btn-success btn-block switchRotor m-t-xs" id="StartRotorButton"> Engage Rotor </button>
+										</div>
+										<div class="col-xs-3">
+											<button class="btn btn-success btn-block switchCSP m-t-xs" id="StartCSPButton"> Start-CSP </button>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="chat-discussion" id="terminallog">
+											<!-- LOG DATA -->
+											{{#with tncData}}
+											{{#each data in tncData}}
+											{{#if data.isUser}}	
+											<div class="chat-message right">
+												<img class="message-avatar" src="images/p1.jpg" alt="" >
+												<div class="message">
+													<a class="message-author" href="#"> Guest </a>
+													<span class="message-date">  Timestamp is {{data.time}} </span>
+													<span class="message-content">			
+														<!-- {{breaklines data.content}} -->
+														<pre class="logFormat">{{breaklines data.content}}</pre>
+													</span>
+												</div>
+											</div>
+											{{else}}
+											<div class="chat-message left">
+												<img class="message-avatar" src="Satellite-512.png" alt="" >
+												<div class="message">
+													<a class="message-author" href="#"> CSP-term </a>
+													<span class="message-date">  Timestamp is {{data.time}} </span>
+													<span class="message-content">			
+														<!-- {{breaklines data.content}} -->
+														<pre class="logFormat">{{breaklines data.content}}</pre>
+													</span>
+												</div>
+											</div>
+
+											{{/if}}
+											{{/each}}
+											{{/with}}
+											<!-- LOG DATA -->
+										</div>
+										<div class="panel-footer">
+											<div class="input-group">
+												<input type="text" class="form-control commandGo commandText" id="terminalTextField" placeholder="Type your command here...">
+												<span class="input-group-btn">
+													<button class="btn btn-success sendCommand cspBtn" id="sendCSPBtn">Send</button>
+													<button class="btn btn-success btn-outline tolatestmsg"><i class="fa fa-angle-double-down"></i></button>
+												</span>
+											</div>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="btn-group btn-group-justified m-t-sm m-b-sm" id="myCollapsible">
+											<div class="col-lg-2 btn-group">
+												<button class="btn btn-primary btn-block" id="about1-btn" data-toggle="collapse" data-parent="#sub" data-target="#about1">TEC</button>
+											</div>
+
+											<div class="col-lg-2 btn-group">
+												<button class="btn btn-primary btn-block" id="about2-btn" data-toggle="collapse" data-parent="#sub" data-target="#about2">SPEQS</button>
+											</div>
+
+											<div class="col-lg-2 btn-group">
+												<button class="btn btn-primary btn-block" id="about3-btn" data-toggle="collapse" data-parent="#sub" data-target="#about3">TT&amp;C</button>
+											</div>
+
+											<div class="col-lg-2 btn-group">
+												<button class="btn btn-primary btn-block" id="about4-btn" data-toggle="collapse" data-parent="#sub" data-target="#about4">ADCS</button>
+											</div>
+
+											<div class="col-lg-2 btn-group">
+												<button class="btn btn-primary btn-block" id="about5-btn" data-toggle="collapse" data-parent="#sub" data-target="#about5">OBC</button>
+											</div>
+                                            <div class="col-lg-2 btn-group">
+                                                <button class="btn btn-primary btn-block" id="about6-btn" data-toggle="collapse" data-parent="#sub" data-target="#about6">ZX</button>
+                                            </div>
+										</div>
+									</div>
+
+									<div class="row tooltip-demo" id="sub">
+										<div id="about1" class="col-lg-12 collapse">
+											<div class="row m-t-sm m-b-sm">
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block turnOnTec cspBtn" data-toggle="tooltip" data-placement="bottom" title="Turns on the TEC payload.">
+																Turn on TEC
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block turnOffTec cspBtn" data-toggle="tooltip" data-placement="bottom" title="Turns off the TEC payload.">
+																Turn off TEC
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block turnOnTecDuration cspBtn" data-toggle="tooltip" data-placement="bottom" title="Turns on the TEC payload for the duration in seconds.">
+																Turn on TEC (for specific duration)
+															</button>
+														</div>
+														<div class="col-lg-6">
+															<input type="number" placeholder="Duration (seconds)" class="form-control tecDuration"/>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+											</div>
+										</div>
+
+										<div id="about2" class="col-lg-12 collapse">
+											<div class="row m-t-sm m-b-sm">
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block turnOnSPEQS cspBtn" data-toggle="tooltip" data-placement="bottom" title="Turns on the SPEQ payload.">
+																Turn on SPEQS
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block turnOffSPEQS cspBtn" data-toggle="tooltip" data-placement="bottom" title="Turns off the SPEQ payload.">
+																Turn off SPEQS
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block initSPEQS cspBtn" data-toggle="tooltip" data-placement="bottom" title="Initilaizes the USART for communication with SPEQS.">
+																Initialize SPEQS Comm.
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block downloadSPEQSExp cspBtn" data-toggle="tooltip" data-placement="bottom" title="Downloads the latest n SPEQS experiment files.">
+																Download SPEQS Experiment files
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block setSPEQSProf cspBtn" data-toggle="tooltip" data-placement="bottom" title="Sets SPEQS experiment profile.">
+																Set SPEQS Experiment Profile
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block saveSPEQSExp cspBtn" data-toggle="tooltip" data-placement="bottom" title="Save the data from SPEQS experiment to SD">
+																Save SPEQS data 
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block enManualCtrSPEQSExp cspBtn" data-toggle="tooltip" data-placement="bottom" title="Turns on/off manual control for SPEQS board.">
+																Enable manual control for SPEQS
+															</button>
+														</div>
+														<div class="col-lg-6">
+															<input type="number" placeholder="Enable" class="form-control enableText"/>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+											</div>
+										</div>
+
+										<div id="about3" class="col-lg-12 collapse">
+											<div class="row m-t-sm m-b-sm">
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block deployGsAnt cspBtn" data-toggle="tooltip" data-placement="bottom" title="Sends command to NanoHub to deploy GOMSpace antennae.">
+																Deploy GS Antennae 
+															</button>
+														</div>
+														<div class="col-lg-6">
+															<input type="number" placeholder="burn_time" class="form-control burnTime"/>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block saveGsAnt cspBtn" data-toggle="tooltip" data-placement="bottom" title="Gets the status of the GOMSapce Antennae from NanoHub and saves to flash memory. Also updates the flash variable indicating whether the GS Antennae has been deployed.">
+																Save GS Antennae Status
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block deployIsisAnt cspBtn" data-toggle="tooltip" data-placement="bottom" title="Deploys an iSIS antennae arm.">
+																Deploy ISIS Antennae
+															</button>
+														</div>
+														<div class="col-lg-6 col-xs-6">
+															<input type="number" placeholder="processor_addr" class="form-control processorAddrText"/>
+														</div>
+														<div class="col-lg-6 col-xs-6">
+															<input type="number" placeholder="ant_no" class="form-control antNoText"/>
+														</div>
+														<div class="col-lg-6 col-xs-6">
+															<input type="number" placeholder="burn_time" class="form-control depBurnTimeText"/>
+														</div>
+														<div class="col-lg-6 col-xs-6">
+															<input type="number" placeholder="override" class="form-control overrideText"/>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block getIsisAntStat cspBtn" data-toggle="tooltip" data-placement="bottom" title="Save the data from SPEQS experiment to SD">
+																Get ISIS Antennae status
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block dlAntStatFile cspBtn" data-toggle="tooltip" data-placement="bottom" title="Downloads antennae status file from flash memory.">
+																Download Antennae status file
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+											</div>
+										</div>
+
+										<div id="about4" class="col-lg-12 collapse">
+											<div class="row m-t-sm m-b-sm">
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block turnOnADCS cspBtn" data-toggle="tooltip" data-placement="bottom" title="Turns on the active ADCS payload.">
+																Turn on ADCS
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+												<div class="col-md-4 col-xs-12 m-b-sm">
+													<div class="row">
+														<div class="col-lg-12">
+															<button class="btn btn-info btn-block turnOffADCS cspBtn" data-toggle="tooltip" data-placement="bottom" title="Turns off the active ADCS payload.">
+																Turn off ADCS
+															</button>
+														</div>
+													</div>
+												</div>
+												<!-- Button -->
+											</div>
+										</div>
+
+										<div id="about5" class="col-lg-12 collapse">
+											<div class="row m-t-sm m-b-sm">
+												
+												<div class="col-lg-12">
+													<div class="row">
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block getGlobalVar cspBtn" data-toggle="tooltip" data-placement="bottom" title="Gets the value of the global variable varname.">
+																		Get global variable
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="varname" class="form-control getGlobalVarnameText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block getAllGlobalVar cspBtn" data-toggle="tooltip" data-placement="bottom" title="Gets the value of all the global variables in a pre-determined order.">
+																		Get All global variable
+																	</button>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block setGlobalVar cspBtn" data-toggle="tooltip" data-placement="bottom" title="Sets the value of the global variable varname to value. The variables are volatile and therefore restored to default values upon system reset. Protected variables should not be changed using this command.">
+																		Set global variable
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="varname" class="form-control setGlobalVarnameText"/>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="value" class="form-control setGlobalValText"/>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="col-lg-12">
+													<div class="row">
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block getFlashVar cspBtn" data-toggle="tooltip" data-placement="bottom" title="Gets the value of the variable varname from RAM. Ideally, this should be the same as that stored in the flash memory.">
+																		Get flash variable
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="varname" class="form-control getFlashVarnameText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block getAllFlashVar cspBtn" data-toggle="tooltip" data-placement="bottom" title="Gets the value of all the flash variables in a pre-determined order.">
+																		Get all flash variables
+																	</button>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block setFlashVar cspBtn" data-toggle="tooltip" data-placement="bottom" title="Sets the value of the flash variable varname to value.">
+																		Set flash variable
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="varname" class="form-control setFlashVarnameText"/>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="value" class="form-control setFlashVarValueText"/>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-lg-12">
+													<div class="row">
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block suspendTask cspBtn" data-toggle="tooltip" data-placement="bottom" title="Suspends a FreeRTOS task.">
+																		Suspend Task
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="taskname" class="form-control suspendTasknameText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block resumeTask cspBtn" data-toggle="tooltip" data-placement="bottom" title="Resumes a FreeRTOS task.">
+																		Resume Task
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="taskname" class="form-control resumeTasknameText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block getEventGrpFlg cspBtn" data-toggle="tooltip" data-placement="bottom" title="Gets the EventGroup variable which signals to the OBC the occurnce of various events.">
+																		Get EventGroup flags
+																	</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-lg-12">
+													<div class="row">
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block setEventBits cspBtn" data-toggle="tooltip" data-placement="bottom" title="Sets the bits defined by mask of flag_events.">
+																		Set Event Bits 
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="event" class="form-control setEventBitsText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block clrEventBits cspBtn" data-toggle="tooltip" data-placement="bottom" title="Clears the bits defined by mask of flag_events.">
+																		Clear Event Bits 
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="event" class="form-control clrEventBitsText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block changeMode cspBtn" data-toggle="tooltip" data-placement="bottom" title="Perform a forced mode change.">
+																		Change Mode
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="mode" class="form-control changeModeText"/>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-lg-12">
+													<div class="row">
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block liveHseKeeping cspBtn" data-toggle="tooltip" data-placement="bottom" title="Perform a housekeeping and get the data.">
+																		Live Housekeeping 
+																	</button>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block performBeacon cspBtn" data-toggle="tooltip" data-placement="bottom" title="Perform a beaconing from the satellite.">
+																		Perform Beacon 
+																	</button>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block endContact cspBtn" data-toggle="tooltip" data-placement="bottom" title="Ends Communication during an overpass allowing the OBC to go to Autonomous mode.">
+																		End Contact 
+																	</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+												<div class="col-lg-12">
+													<div class="row">
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block dlErrorLog cspBtn" data-toggle="tooltip" data-placement="bottom" title="Downloads the error log file from flash memory.">
+																		Download Error log
+																	</button>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block chngTimeoutNpwr cspBtn" data-toggle="tooltip" data-placement="bottom" title="Sets the timeout (in sec) for any csp transactions with the NanoPower (EPS).">
+																		Change timeout for NanoPower
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="timeout" class="form-control chngTimeoutNpwrText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block cspBtn" data-toggle="tooltip" data-placement="bottom" title="Timesync">
+																		Timesync
+																	</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+
+												<div class="col-lg-12">
+													<div class="row">
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block delHsekeepingFiles cspBtn" data-toggle="tooltip" data-placement="bottom" title="Deletes housekeeping files from index st to end (inclusive) in the folder /sd/hkdata.">
+																		Delete Housekeeping files
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="start" class="form-control delHsekeepingFilesStText"/>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="end" class="form-control delHsekeepingFilesEndText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block dlHsekeepingFiles cspBtn" data-toggle="tooltip" data-placement="bottom" title="Downloads housekeeping files from index st to end (inclusive) in the folder /sd/hkdata.">
+																		Download Housekeeping files
+																	</button>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="start" class="form-control dlHsekeepingFilesStText"/>
+																</div>
+																<div class="col-lg-6 col-xs-6">
+																	<input type="number" placeholder="end" class="form-control dlHsekeepingFilesEndText"/>
+																</div>
+															</div>
+														</div>
+														<!-- Button -->
+														<div class="col-md-4 col-xs-12 m-b-sm">
+															<div class="row">
+																<div class="col-lg-12">
+																	<button class="btn btn-info btn-block disableNanohHub cspBtn" data-toggle="tooltip" data-placement="bottom" title="Disables NanoHub WDT">
+																		Disable NanoHub WDT
+																	</button>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+												
+											</div>
+										</div>
+
+                                        <div id="about6" class="col-lg-12 collapse">
+
+                                            <div class="row m-t-sm m-b-sm">
+
+                                                <!-- Command with input (Ping) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block getPing cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does Ping do?">
+                                                                Ping
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="node" class="form-control getPingValue"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Command with input (Rps) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block getRemotePs cspBtn" data-toggle="tooltip" data-placement="bottom" title="What is this Remote PS?">
+                                                                Remote PS
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="node" class="form-control getRemotePsValue"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Command with input (MemFree) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block setMemFree cspBtn" data-toggle="tooltip" data-placement="bottom" title="What is this Remote PS?">
+                                                                Memory free
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="node" class="form-control setMemFreeValue"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Command with input (BuffFree) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block setBuffFree cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Buffer free
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="node" class="form-control setBuffFreeValue"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with input (Reboot) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block setReboot cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Reboot
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="node" class="form-control setRebootValue"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with input (Shutdown) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block setShutdown cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Reboot
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="node" class="form-control setShutdownValue"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with no input (Uptime) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block getUptime cspBtn" data-toggle="tooltip" data-placement="bottom" title="What is this Remote PS?">
+                                                                Uptime
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with no input (Cmp Node ID) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block cmpNodeId cspBtn" data-toggle="tooltip" data-placement="bottom" title="What is this Remote PS?">
+                                                                Cmp: Node ID
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with 2 inputs (Cmp Update Table) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block cmpUpdateTbl cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Cmp: Update table
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-5 col-xs-5">
+                                                            <input type="number" placeholder="<node>" class="form-control getUpdateTblNode"/>
+                                                        </div>
+                                                        <div class="col-lg-7 col-xs-7">
+                                                            <input type="number" placeholder="<addr/mac/ifstr>?" class="form-control getUpdateTblAddress"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with 2 inputs (Cmp Remote IFC) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block cmpRemoteIfc cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Cmp: Remote IFC
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-5 col-xs-5">
+                                                            <input type="number" placeholder="<node>" class="form-control getRemoteIfcNode"/>
+                                                        </div>
+                                                        <div class="col-lg-7 col-xs-7">
+                                                            <input type="number" placeholder="<interface>" class="form-control getRemoteIfcInterface"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with 3 inputs (Cmp Show Remote Memory) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block cmpRemoteMem cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Cmp: Show remote memory
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-3 col-xs-3">
+                                                            <input type="number" placeholder="<node>" class="form-control getRemoteMemNode"/>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="<addr>" class="form-control getRemoteMemAddress"/>
+                                                        </div>
+                                                        <div class="col-lg-3 col-xs-3">
+                                                            <input type="number" placeholder="<len>" class="form-control getRemoteMemLen"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with 3 inputs (Cmp Modify Remote Memory) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block cmpModRemoteMem cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Cmp: Modify remote memory
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-3 col-xs-3">
+                                                            <input type="number" placeholder="<node>" class="form-control getModRemoteMemNode"/>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="<addr>" class="form-control getModRemoteMemAddress"/>
+                                                        </div>
+                                                        <div class="col-lg-3 col-xs-3">
+                                                            <input type="number" placeholder="<base16_data>" class="form-control getModRemoteMemLen"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with 2 inputs (Cmp Get/Set Clock) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block cmpClock cspBtn" data-toggle="tooltip" data-placement="bottom" title="Get t=0, setsys t= -1">
+                                                                Cmp: Get/Set clock
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-5 col-xs-5">
+                                                            <input type="number" placeholder="<node>" class="form-control getClockNode"/>
+                                                        </div>
+                                                        <div class="col-lg-7 col-xs-7">
+                                                            <input type="number" placeholder="[<sec> <nsec>]" class="form-control getClockTime"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with no input (Route) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block showRoute cspBtn" data-toggle="tooltip" data-placement="bottom" title="What is this Remote PS?">
+                                                                Show routing table
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with no input (Ifc) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block showIfc cspBtn" data-toggle="tooltip" data-placement="bottom" title="What is this Remote PS?">
+                                                                Show interfaces
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with no input (Conn) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block showConn cspBtn" data-toggle="tooltip" data-placement="bottom" title="What is this Remote PS?">
+                                                                Show connection table
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <!--Command with 6 inputs (RDP Options) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block cmpModRemoteMem cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Set RDP options
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-4 col-xs-4">
+                                                            <input type="number" placeholder="<node>" class="form-control getModRemoteMemNode"/>
+                                                            <input type="number" placeholder="<delay ACKs>" class="form-control getModRemoteMemNode"/>
+                                                        </div>
+                                                        <div class="col-lg-4 col-xs-4">
+                                                            <input type="number" placeholder="<conn timeout>" class="form-control getModRemoteMemAddress"/>
+                                                            <input type="number" placeholder="<ACK timeout>" class="form-control getModRemoteMemAddress"/>
+                                                        </div>
+                                                        <div class="col-lg-4 col-xs-4">
+                                                            <input type="number" placeholder="<packet timeout>" class="form-control getModRemoteMemLen"/>
+                                                            <input type="number" placeholder="<ACK delay count>" class="form-control getModRemoteMemLen"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with no input (Help) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block showHelp cspBtn" data-toggle="tooltip" data-placement="bottom" title="Shows a list of commands">
+                                                                Help
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with input (Sleep) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block setSleep cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does this do?">
+                                                                Sleep
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+                                                            <input type="number" placeholder="time (ms)" class="form-control setSleepValue"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with 2 inputs (Run cmd at intervals) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block cmdIntervals cspBtn" data-toggle="tooltip" data-placement="bottom" title="Abort with key">
+                                                                Run cmd at intervals
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-5 col-xs-5">
+                                                            <input type="number" placeholder="delay" class="form-control getDelay"/>
+                                                        </div>
+                                                        <div class="col-lg-7 col-xs-7">
+                                                            <input type="number" placeholder="command" class="form-control getCommand"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with no input (Batch) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block pklParam cspBtn" data-toggle="tooltip" data-placement="bottom" title="Shows a list of commands">
+                                                                Send PKL Param
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!--Command with 2 inputs (Debug) -->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block debug cspBtn" data-toggle="tooltip" data-placement="bottom" title="Abort with key">
+                                                            Debug
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-5 col-xs-5">
+                                                            <input type="number" placeholder="group" class="form-control getGroup"/>
+                                                        </div>
+                                                        <div class="col-lg-7 col-xs-7">
+                                                            <input type="number" placeholder="???" class="form-control getError"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- REBECCA TEST-->
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block imgTask cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does Ping do?">
+                                                                Imaging Task {{getTaskInformation.exposureTime}}
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4 col-xs-12 m-b-sm">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <button class="btn btn-info btn-block downlinkTask cspBtn" data-toggle="tooltip" data-placement="bottom" title="What does Ping do?">
+                                                                Downlink Task
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-lg-6 col-xs-6">
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+
+
+                                            </div>
+                                        </div>
+
+									</div>
+								</div>
+
+							</div>
+						</div>
+						<div id="tab-2" class="tab-pane">
+							<div class="panel-body">
+								<!-- {{#with rotorSettingData}} -->
+								<div class="col-lg-8 col-xs-12">
+									
+									<div class="row">
+										<form class="form-horizontal">
+											<div class="form-group">
+												<label class="col-sm-2 control-label"> Name </label>
+												<div class="col-sm-10 m-b-sm">
+													<input type="string" placeholder="" class="form-control nameVal" value="{{rotorSettingData.name}}">
+												</div>
+												<label class="col-sm-2 control-label"> Host </label>
+												<div class="col-sm-10 m-b-sm">
+													<input type="string" placeholder="" class="form-control hostVal" value="{{rotorSettingData.host}}"/>
+												</div>
+												<label class="col-sm-2 control-label"> Port </label>
+												<div class="col-sm-10 m-b-sm">
+													<input type="number" placeholder="" class="form-control portVal" value='{{rotorSettingData.port}}'/>
+												</div>
+												<label class="col-sm-2 control-label"> Az Type </label>
+												<div class="col-sm-10 m-b-sm">
+													<select class="form-control" id="aztype">
+														<!-- 0 for 360, 1 for 180 -->
+														<option value="0"  {{rotorSettingData.is360}}> 0&deg; &rarr; 180&deg; &rarr; 360&deg; </option>
+														<option value="1"  {{rotorSettingData.is180}}> -180&deg; &rarr; 0&deg; &rarr; +180&deg; </option>
+													</select>
+												</div>
+
+												<label class="col-sm-2 control-label"> Min Az </label>
+												<div class="col-sm-4 m-b-sm">
+													<input type='number' placeholder="0" class="form-control minAzVal" value='{{rotorSettingData.minAz}}'/>
+												</div>
+												<label class="col-sm-2 control-label"> Max Az </label>
+												<div class="col-sm-4 m-b-sm">
+													<input type='number' placeholder="" class="form-control maxAzVal" value='{{rotorSettingData.maxAz}}'/>
+												</div>
+												<label class="col-sm-2 control-label"> Min El </label>
+												<div class="col-sm-4 m-b-sm">
+													<input type='number' placeholder="0" class="form-control minElVal" value='{{rotorSettingData.minEl}}'/>
+												</div>
+												<label class="col-sm-2 control-label"> Max El </label>
+												<div class="col-sm-4 m-b-sm">
+													<input type='number' placeholder="" class="form-control maxElVal" value='{{rotorSettingData.maxEl}}'/>
+												</div>
+												<label class="col-sm-2 control-label"> Tolerance </label>
+												<div class="col-sm-4 m-b-sm">
+													<input type='number' placeholder="0" class="form-control" value='1.000'/>
+												</div>
+												<label class="col-sm-2 control-label"> Delay </label>
+												<div class="col-sm-4 ">
+													<input type='number' placeholder="" class="form-control " value='5.000'/>
+												</div>
+											</div>
+										</form>
+									</div>
+								</div>
+								<!-- {{/with}} -->
+
+								<div class="col-lg-12">
+									<div class="row">
+										<button class="btn btn-primary pull-right saveRotorSetting">Save</button>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</template>

@@ -1,0 +1,96 @@
+<template name="tncConfig">
+
+	<div class="content">
+		<div class="row">
+			<div class="col-lg-12 col-xs-12">
+				{{#panel}}
+
+				<div class="col-lg-12 border-bottom m-b-sm">
+					<h3><b>Rotator Configuration</b></h3>
+				</div>
+
+				{{#with rotorSettingData}}
+				<div class="col-lg-8 col-xs-12">
+					<div class="row">
+						<div class="col-lg-2 col-xs-2">
+							<h4>Name</h4>
+						</div>
+						<div class="col-lg-10 col-xs-10">
+							<input type="string" placeholder="" class="form-control nameVal" value="{{rotorSettingData.name}}">
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-2 col-xs-2">
+							<h4>Host</h4>
+						</div>
+						<div class="col-lg-10 col-xs-10">
+							<input type="string" placeholder="" class="form-control hostVal" value="{{rotorSettingData.host}}"/>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-2 col-xs-2">
+							<h4>Port</h4>
+						</div>
+						<div class="col-lg-10 col-xs-10">
+							<input type="number" placeholder="" class="form-control portVal" value='{{rotorSettingData.port}}'/>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-2 col-xs-2">
+							<h4>Az type</h4>
+						</div>
+						<div class="col-lg-10 col-xs-10">
+							<select class="form-control" id="aztype">
+								<!-- 0 for 360, 1 for 180 -->
+								<option value="0"  {{rotorSettingData.is360}}> 0&deg; &rarr; 180&deg; &rarr; 360&deg; </option>
+								<option value="1"  {{rotorSettingData.is180}}> -180&deg; &rarr; 0&deg; &rarr; +180&deg; </option>
+							</select>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-2 col-xs-2">
+							<h4>Min Az</h4>
+						</div>
+						<div class="col-lg-4 col-xs-4">
+							<input type='number' placeholder="0" class="form-control minAzVal" value='{{rotorSettingData.minAz}}'/>
+						</div>
+						<div class="col-lg-2 col-xs-2">
+							<h4>Max Az</h4>
+						</div>
+						<div class="col-lg-4 col-xs-4">
+							<input type='number' placeholder="" class="form-control maxAzVal" value='{{rotorSettingData.maxAz}}'/>
+						</div>
+					</div>
+
+					<div class="row">
+						<div class="col-lg-2 col-xs-2">
+							<h4>Min El</h4>
+						</div>
+						<div class="col-lg-4 col-xs-4">
+							<input type='number' placeholder="0" class="form-control minElVal" value='{{rotorSettingData.minEl}}'/>
+						</div>
+						<div class="col-lg-2 col-xs-2">
+							<h4>Max El</h4>
+						</div>
+						<div class="col-lg-4 col-xs-4">
+							<input type='number' placeholder="" class="form-control maxElVal" value='{{rotorSettingData.maxEl}}'/>
+						</div>
+					</div>
+				</div>
+				{{/with}}
+					
+				<div class="row">
+					<div class="col-xs-12">
+						<button class="btn btn-default pull-right m-t-xs saveRotorSetting">Save</button>
+					</div>
+				</div>
+				{{/panel}}
+			</div>
+		</div>
+	</div>
+
+</template>

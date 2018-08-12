@@ -1,0 +1,219 @@
+/* Self CSS */
+
+div{
+  word-wrap: break-word;
+}
+
+
+/**** Header CSS ****/
+.time{
+  position: fixed;
+  margin-top: 20px;
+  padding-right: 60px;
+  color: #1c3f53;
+  font-weight: bold;
+}
+
+/**** Dashboard page CSS ****/
+
+.overlay{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  background-color: transparent;
+}
+
+.padding{
+  padding: 20px;
+}
+
+.track_l{
+  display: inline-block;
+  text-align: right;
+  width:50%;
+  vertical-align: middle;
+}
+
+.track_c{
+  display: inline-block;
+  width:1%
+  vertical-align: middle;
+}
+
+.track_r{
+  display: inline-block;
+  text-align: left;
+  width:30%;
+  vertical-align: middle;
+}
+
+/**** Prediction page CSS ****/
+
+/* Map plot CSS */
+.map_container {
+  /*display: inline-block;*/
+  /* padding-right: 20px;*/
+  max-width: 100%;
+  width: 1000px;
+  height: 500px;
+  margin-left: auto ;
+  margin-right: auto ;
+}
+
+/*NOTE only use default tag name if its only used in html ONCE
+else DONT EVER USE default tags*/
+/*img {
+  max-width: 100%;
+  max-height: 100%;
+}*/
+
+#azimuth-polarchart>div>div{
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+/* Prediction settings CSS */
+
+/* Prediction table CSS */
+
+/* Satellite name */
+.predict_name {
+  border-top: 1px solid #d9d9d9;
+  border-left: 1px solid #d9d9d9;
+  border-right: 1px solid #d9d9d9;
+  background: #d9d9d9;
+  padding: 5px;
+  padding-left: 10px;
+  font-weight: bold;
+}
+
+/* Date Time Column */
+.predict_date_time {
+  width: 12%;
+}
+
+.predict_date_time_wrapper {
+  width: 100%;
+  margin: auto;
+}
+.predict_date {
+  width: 90%;
+  text-align: center;
+  /*display: inline-block;*/
+}
+
+.predict_time {
+  width: 30%;
+  text-align: center;
+  display: inline-block;
+}
+
+.predict_time_dash {
+  width: auto;
+  text-align: center;
+  display: inline-block;
+}
+
+/* Countdown column */
+.predict_countdown {
+  width: 9%;
+}
+
+/* Epoch Time column */
+.predict_epoch {
+  width: 9%;
+}
+
+/* Peak Elevation column */
+.predict_elevation {
+  width: 8%;
+}
+
+/* Azimuth / Range Column */
+.predict_azimuth {
+  width: 15%;
+}
+
+.predict_azimuth_wrapper {
+  width: 100%;
+  margin: auto;
+}
+
+.predict_azimuth_div {
+  display: inline-block;
+  width: 30%;
+}
+
+/* Visibility */
+.predict_visibility {
+  width: 6%;
+}
+
+/* Cloud cover column */
+.predict_cover {
+  width: 8%;
+}
+
+/* Mark Highlighted Row */
+.predict_highlight_row {
+  background-color: #e6e6e6 !important;
+}
+
+.predict_highlight_row2 {
+  background-color: #FFEFD5;
+}
+
+/* No Data Text */
+.no_data {
+  font-size: 20px;
+  text-decoration: underline;
+  padding: 20px;
+
+}
+
+/* Settings CSS */
+
+/* Might be useful CSS */
+.row-eq-height {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display:         flex;
+}
+
+/*
+.weather_style {
+    display: inline-block;
+    float: left; 
+}
+.weather_table{
+    width:40%;
+    float:left;
+}*/
+
+.logFormat{
+  background: none;
+  border: none;
+  text-align: left;
+}
+
+
+/* Override chat discussion height*/
+.chat-discussion {
+  padding: 15px 10px;
+  height:600px;
+}
+
+
+
+
+.toggleStartButtonColour, .toggleStartButtonColour:hover, .toggleStartButtonColour:focus, .toggleStartButtonColour:active,
+.toggleRotorButtonColour, .toggleRotorButtonColour:hover, .toggleRotorButtonColour:focus, .toggleRotorButtonColour:active{
+  color: white;
+  background-color: red;
+  border-color: red;
+}

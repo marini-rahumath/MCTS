@@ -1,0 +1,276 @@
+<template name="Prediction">
+
+	<div class="content">
+		<div class="row">
+			<div class="col-lg-12">
+				{{#panel}}
+					<div class ="map_container">
+						{{>googleMap name="gMapView" options=gMapOptions}}
+					</div>
+				{{/panel}}
+			</div>
+
+        </div>
+
+		<div class="row">
+            <div class="col-lg-12">
+				{{#panel}}
+                <div class="row">
+				<div class="col-lg-6 col-xs-12">
+					<div class="col-lg-12 border-bottom m-b-sm">
+						<h4>Visualisation</h4>
+					</div>
+					<div class="col-xs-6">
+						<label>
+							<input type="checkbox" checked class="toggle-flightPath"/>
+							Flight Path
+						</label>
+					</div>
+					<div class="col-xs-6">
+						<label>
+							<input type="checkbox" checked class="toggle-footPrint"/>
+							Footprint
+						</label>
+					</div>
+					<div class="col-xs-6">
+						<label>
+							<input type="checkbox" checked class="toggle-nightShadow"/>
+							Night Shadow
+						</label>
+					</div>					
+					<div class="col-xs-6">
+						<label>
+							<input type="checkbox" checked class="toggle-terminator"/>
+							Terminator
+						</label>
+					</div>					
+					<div class="col-lg-12">
+						<label>
+							<input type="checkbox" checked class="toggle-sunMarker"/>
+							SunMarker
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-6 col-xs-12">
+					<div class="col-lg-12 border-bottom m-b-sm">
+						<h4>Sat on Track</h4>
+					</div>
+					<div class="col-lg-4 col-xs-4">
+						<label>
+							<input type="checkbox" checked={{isBeginChecked}} class="toggle-beginSatOnTrack"/>
+							Begin
+						</label>
+					</div>	
+					<div class="col-lg-4 col-xs-4">
+						<label>
+							<input type="checkbox" checked={{isMiddleChecked}} class="toggle-middleSatOnTrack"/>
+							Middle
+						</label>
+					</div>	
+					<div class="col-lg-4 col-xs-4">
+						<label>
+							<input type="checkbox" checked={{isEndChecked}} class="toggle-endSatOnTrack"/>
+							End
+						</label>
+					</div>
+				</div>
+                </div>
+                <div class="row">
+                <div class="col-lg-6 col-xs-12">
+                    <div class="col-lg-12 border-bottom m-b-sm">
+                         <h4> Satellites   </h4>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="selectSatGrp">
+                                {{#each satellite in satelliteList}}
+                                <option value="{{satellite.name}}"> {{satellite.name}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                </div>
+				<div class="col-lg-6 col-xs-12">
+					<div class="col-lg-12 border-bottom m-b-sm">
+						<h4>Future passes</h4>
+					</div>
+					<div class="col-lg-7 col-xs-7">
+						<input type="number" value="0" class="form-control num-of-passes"/>						
+					</div>
+					<div class="col-lg-5 col-xs-5">
+						<button class="btn btn-info btn-block show-futurePasses">
+							Go
+						</button>
+					</div>
+				</div>
+                </div>
+				{{/panel}}
+			</div>
+            
+			<div class="col-lg-6">
+				{{#panel}}
+                    <div class="col-lg-12 text-center"> <mark>{{statusOfSelection}} {{selectedPass}} </mark></div>
+				<div id="azimuth-polarchart"></div>
+				{{/panel}}
+			</div>
+
+            <div class="col-lg-6">
+				{{#panel}}                 
+                 <div class="col-lg-12">
+                     <div class="col-lg-12 border-bottom m-b-sm">
+						<h4>Prediction</h4>
+					</div>
+					<div class="col-lg-6 col-xs-12">
+						<label>	Search period (Days) </label>
+						<input type="text" value="1" class="form-control search-period"/>
+					</div>
+					<div class="col-lg-6 col-xs-12">
+                        <div class="form-group">
+                            <label> Visibility </label>
+                            <select class="form-control" id="selectVisibility">
+                                <option value="All">All</option>
+                                <option value="Eclipsed">Eclipsed</option>
+                                <option value="Daylight">Daylight</option>
+                                <option value="Visible">Visible</option>
+                            </select>
+                        </div>
+                    </div>
+					<div class="col-lg-6 col-xs-12">
+						<label>	Minimum Elevation </label>
+						<input type="text" value="10" class="form-control min-elevation"/>
+					</div>
+                    <div class="col-lg-6 col-xs-12">
+						<label>	Minimum Cloud Cover </label>
+						<input type="text" value="0" class="form-control min-cloudCover"/>
+					</div>
+					<!--  -->
+					<div class="col-lg-12 col-xs-12 m-t-sm">
+                        <div class="form-group">
+                            <label> Location: </label>
+                            <select class="form-control" id="selectLocation">
+                                <option value="default"> Default </option>
+                                <option value="custom"> Custom </option>
+                            </select>
+                        </div>
+                    </div>
+                    {{#if isLocation}}
+					<div class="col-lg-6 col-xs-12">
+						<label>	Latitude </label>
+						<input type="text" value="1.3667" class="form-control latitude"/>
+					</div>
+					<div class="col-lg-6 col-xs-12">
+						<label> Longtitude </label>
+						<input type="text" value="103.9832" class="form-control longtitude"/>
+					</div>
+					{{else}}
+						<div class="col-xs-4"> <strong> Current Location: </strong> </div>
+						{{#with defaultLocation}}
+						<div class="col-xs-4 text-center border-right"> {{defaultLocation.loc}} </div> 
+						<div class="col-xs-4 text-center"> ({{defaultLocation.lat}},{{defaultLocation.lon}}) </div>
+						{{/with}}
+						<div class="m-b-md"> &nbsp; </div>
+					{{/if}}
+					
+					<!--  -->					
+					<div class="col-xs-12 m-t-md m-b-sm">
+						<button class="btn btn-info btn-block run-prediction">
+							Predict
+						</button>
+					</div>
+					<div class="col-xs-12">
+						<label>
+							<input type="checkbox" class="toggle-timezone"/> 
+							Timezone {{#if timezone}}(GMT+8){{else}}(UTC){{/if}}
+						</label>
+					</div>
+                 </div>
+                 {{/panel}}
+            </div>
+                    
+		</div>
+
+		<div class="row">
+			<div class="col-lg-12">
+				{{#with calculate}}
+				{{#if calculate.show}}
+				{{#each satellite in calculate.data}}
+				{{#panel}}
+				<div class="predict_name">{{satellite.data.name}}</div>
+
+				<div class="table-responsive">
+                <table id="example1" cellpadding="1" cellspacing="1" class="table table-bordered table-striped table-hover">
+                	<thead>
+					<tr>
+						<th class="predict_date_time text-center">
+							Date &#38; Time {{#if timezone}}(GMT+8){{else}}(UTC){{/if}}
+						</th>
+                        <th class="predict_countdown text-center">Countdown</th>
+                        <th class="predict_epoch text-center">Start Epoch Time</th>
+                        <th class="predict_epoch text-center">End Epoch Time</th>
+						<th class="predict_elevation text-center">Peak Elevation</th>
+						<th class="predict_azimuth text-center">Aziumth</th>
+						<th class="predict_azimuth text-center">Range</th>
+						<th class="predict_visibility text-center">Visibility</th>
+                        <th class="predict_cover text-center">Estimated Cloud Cover</th>
+					</tr>
+					</thead>
+
+					{{#each satellite.data.array}}
+					<tbody>
+					<tr class="predict-row highlight-row predict_hover" id="prow">
+						<td class="text-center">
+							<div class="predict_date_time_wrapper text-center">
+								<div class="predict_date"> 
+									{{#if timezone}} {{this.LocaleOfPass}} {{else}} {{this.UTCDateOfPass}} {{/if}}
+                                </div>
+                        <div class="predict_time">
+                            {{#if timezone}} {{this.LocalTimeOfPassStart}} {{else}} {{this.UTCTimeOfPassStart}} {{/if}}
+                        </div>
+								<div class="predict_time_dash"> - </div>
+								<div class="predict_time"> 
+									{{#if timezone}} {{this.LocalTimeOfPassEnd}} {{else}} {{this.UTCTimeOfPassEnd}} {{/if}}
+								</div>
+							</div>
+						</td>
+                        <td class="text-center">{{this.countdownToPass}}</td>
+                        <td class="text-center">{{this.startEpochTime}}</td>
+                        <td class="text-center">{{this.endEpochTime}}</td>
+						<td class="text-center">{{this.peakElevation}}</td>
+						<td class="text-center">
+							<div class="predict_azimuth_wrapper">
+								<div class="predict_azimuth_div"> {{this.riseAzimuth}} </div>
+								<div class="predict_azimuth_div"> {{this.peakAzimuth}} </div>
+								<div class="predict_azimuth_div"> {{this.decayAzimuth}} </div>
+							</div>
+						</td>
+						<td class="text-center">
+							<div class="predict_azimuth_wrapper">
+								<div class="predict_azimuth_div"> {{this.riseRange}} </div>
+								<div class="predict_azimuth_div"> {{this.peakRange}} </div>
+								<div class="predict_azimuth_div"> {{this.decayRange}} </div>
+							</div>
+						</td>
+						<td class="text-center">{{this.visibility}}</td>
+                        <td class="text-center">{{this.cloudCover}}</td>
+					</tr>
+					</tbody>
+					{{/each}}
+				</table>
+				</div>
+				{{/panel}}
+				{{/each}}
+				{{else}}
+				{{#panel}}
+				<div class="no_data">No data available</div>
+				{{/panel}}
+				{{/if}}
+				{{/with}}
+			</div>
+		</div>
+	</div>
+	{{> script_template}}
+</template>
+
+
+<template name="script_template">
+   <div id="script_div">
+   </div>
+</template>

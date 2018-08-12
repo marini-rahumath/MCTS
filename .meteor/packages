@@ -1,0 +1,52 @@
+# Meteor packages used by this project, one per line.
+# Check this file (and the other files in this directory) into your repository.
+#
+# 'meteor add' and 'meteor remove' will edit this file for you,
+# but you can also edit it by hand.
+
+meteor-base@1.2.0             # Packages every Meteor app needs to have
+mobile-experience@1.0.5       # Packages for a great mobile UX
+mongo@1.3.0                   # The database Meteor supports right now
+blaze-html-templates@1.0.4    # Compile .html files into Meteor Blaze views
+reactive-var@1.0.11            # Reactive variable for tracker
+tracker@1.1.3                 # Meteor's client-side reactive programming library
+
+standard-minifier-css   # CSS minifier run for production mode
+standard-minifier-js    # JS minifier run for production mode
+es5-shim@4.6.15                # ECMAScript 5 compatibility for older browsers.
+ecmascript@0.9.0              # Enable ECMAScript2015+ syntax in app code
+shell-server            # Server-side component of the `meteor shell` command
+
+reactive-dict@1.2.0
+kadira:flow-router
+kadira:blaze-layout
+zimme:active-route
+arillo:flow-router-helpers
+natestrauser:animate-css
+fortawesome:fontawesome
+okgrow:router-autoscroll
+twbs:bootstrap
+onokumus:metismenu
+joshdellay:meteor-ladda-bootstrap
+tsega:bootstrap3-datetimepicker
+kevohagan:sweetalert
+andrasph:clockpicker
+reload@1.1.11
+session@1.1.7
+chrismbeckett:toastr
+d3js:d3
+emdagon:c3js
+dburles:google-maps
+http@1.3.0
+less@2.7.11
+accounts-password@1.5.0
+useraccounts:core
+useraccounts:flow-routing
+useraccounts:unstyled
+tap:i18n
+aldeed:template-extension
+mizzao:timesync
+momentjs:moment
+email@1.2.3
+percolate:synced-cron
+dynamic-import

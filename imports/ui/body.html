@@ -1,0 +1,40 @@
+<body>
+  <div class="container">
+    <header>
+      <h1>Satellite Predictions</h1>
+    </header>
+
+    <div>
+    	<label class="toggle-timezone">
+        <input type="checkbox"/>
+        Toggle Timezone {{#if timezone}}(GMT+8){{else}}(UTC){{/if}}
+      </label>
+    	
+
+	    <table class="predictionTable">
+		    <tr>
+		    	<th>Number on Map</th>
+		    	<th>Satellite</th>
+		    	<th>Pass No.</th>
+		    	<th>{{#if timezone}}Local Date &#38; Time{{else}}UTC Date &#38; Time{{/if}}</th>
+		    	<th>Peak Elevation</th>
+		    	<th>Aziumth</th>
+		    	<th>Range</th>
+		    	<th>Visibility</th>
+		    </tr>
+		    {{#each calculate}}
+		    	<tr>
+			    	<td>{{this.number}}</td>
+			    	<td>{{this.name}}</td>
+			    	<td>{{this.passNo}}</td>
+			    	<td>{{#if timezone}}{{this.LocalDateOfPass}}, {{this.LocalTimeOfPass}}{{else}}{{this.UTCDateOfPass}}, {{this.UTCTimeOfPass}}{{/if}}</td>			    	
+			    	<td>{{this.peakElevation}}</td>
+			    	<td>{{this.riseAzimuth}}, {{this.peakAzimuth}}, {{this.decayAzimuth}}</td>
+			    	<td>{{this.riseRange}}, {{this.peakRange}}, {{this.decayRange}}</td>
+			    	<td>{{this.visibility}}</td>
+		    	</tr>
+		    {{/each}}
+	    </table>
+    </div>
+  </div>
+</body>

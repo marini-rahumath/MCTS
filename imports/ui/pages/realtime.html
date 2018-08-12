@@ -1,0 +1,245 @@
+<template name="Real_Time">
+
+	<div class="content">
+		<div class="row">
+			<div class="col-lg-12">
+				{{#panel}}
+				<div class ="map_container">
+					{{> script_template}}
+					{{>googleMap name="gMapView" options=gMapOptions}}
+				</div>
+				{{/panel}}
+			</div>
+		</div>
+
+		<div class="row">
+			
+		</div>
+
+		
+		<div class="row">
+			<div class="col-lg-12">
+				{{#panel}}
+				 <div class="row">
+				<div class="col-lg-6 col-xs-12">
+					<div class="col-lg-12 border-bottom m-b-sm">
+						<h4>Visualisation</h4>
+					</div>
+					<div class="col-xs-6">
+						<label>
+							<input type="checkbox" checked class="toggle-flightPath"/>
+							Flight Path
+						</label>
+					</div>
+					<div class="col-xs-6">
+						<label>
+							<input type="checkbox" checked class="toggle-footPrint"/>
+							Footprint
+						</label>
+					</div>
+					<div class="col-xs-6">
+						<label>
+							<input type="checkbox" checked class="toggle-nightShadow"/>
+							Night Shadow
+						</label>
+					</div>					
+					<div class="col-xs-6">
+						<label>
+							<input type="checkbox" checked class="toggle-terminator"/>
+							Terminator
+						</label>
+					</div>					
+					<div class="col-lg-12">
+						<label>
+							<input type="checkbox" checked class="toggle-sunMarker"/>
+							SunMarker
+						</label>
+					</div>
+				</div>
+				<div class="col-lg-6 col-xs-12">
+					<div class="col-lg-12 border-bottom m-b-sm">
+						<h4>Sat on Track</h4>
+					</div>
+					<div class="col-lg-4 col-xs-4">
+						<label>
+							<input type="checkbox" checked={{isBeginChecked}} class="toggle-beginSatOnTrack"/>
+							Begin
+						</label>
+					</div>	
+					<div class="col-lg-4 col-xs-4">
+						<label>
+							<input type="checkbox" checked={{isMiddleChecked}} class="toggle-middleSatOnTrack"/>
+							Middle
+						</label>
+					</div>	
+					<div class="col-lg-4 col-xs-4">
+						<label>
+							<input type="checkbox" checked={{isEndChecked}} class="toggle-endSatOnTrack"/>
+							End
+						</label>
+					</div>
+				</div>
+                </div>
+                <div class="row">
+                <div class="col-lg-6 col-xs-12">
+                    <div class="col-lg-12 border-bottom m-b-sm">
+                         <h4> Satellites   </h4>
+                        </div>
+                        <div class="form-group">
+                            <select class="form-control" id="selectSatGrp">
+                                {{#each satellite in satelliteList}}
+                                <option value="{{satellite.name}}"> {{satellite.name}} </option>
+                                {{/each}}
+                            </select>
+                        </div>
+                </div>
+				<div class="col-lg-6 col-xs-12">
+					<div class="col-lg-12 border-bottom m-b-sm">
+						<h4>Future passes</h4>
+					</div>
+					<div class="col-lg-7 col-xs-7">
+						<input type="number" value="0" class="form-control num-of-passes"/>						
+					</div>
+					<div class="col-lg-5 col-xs-5">
+						<button class="btn btn-info btn-block show-futurePasses">
+							Go
+						</button>
+					</div>
+				</div>
+                </div>
+				{{/panel}}
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-lg-6">
+				{{#panel}}
+				<div class="col-lg-12 text-center"> Next Pass (UTC):  {{livePassInUTC}} </div>
+                    <div class="col-lg-12 text-center"> Next Pass (GMT+8):  {{livePassInGMT}} </div><br/>
+                    <div class="col-lg-12 text-center"> {{countdownToNextPass}} </div>
+                    <b><div class="col-lg-12 text-center" id="clock"></div></b> <br/>
+
+                    <!--<div class="col-lg-12 text-center"> Countdown to subsequent passes : </div>-->
+                    <table class="table" align="center" cellpadding="100">
+                        <thead>
+                        <tr>
+                            <th><div data-countdown="2017/10/03 22:23"></div></th>
+                            <th><div data-countdown="2018/01/01 10:29"></div></th>
+                            <th><div data-countdown="2019/01/01 01:11"></div></th>
+                        </tr>
+                        </thead>
+
+                    </table>
+
+
+				<div class="col-lg-12 m-t-sm m-b-xs" id="azimuth-polarchart"></div>
+				{{/panel}}
+			</div>
+
+			<div class="col-lg-6">
+				{{#panel}}
+					<div class="col-lg-12 text-center"><h4> {{liveInfo.name}} </h4></div>
+					<div class="col-lg-12">
+						<div class="track_l"> Azimuth </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.azimuth}}&deg; </div>
+					</div>
+
+					<div class="col-lg-12">
+						<div class="track_l"> Elevation </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.elevation}}&deg; </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Slant Range </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.slant_range}} km</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Range rate </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.range_rate}} km/sec</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> SSP Location </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.ssp}} </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Latitude </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.latitude}} </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Longtitude </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.longtitude}} </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Footprint </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.footprint}} km</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Altitude </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.altitude}} km </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Velocity </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.velocity}} km/sec</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Doppler Factor </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.dop_factor}} </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Doppler Shift @ 100m </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.dop_shift_100m}} MHz</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Signal Loss </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.signal_loss}} dB</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Signal Delay </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.signal_delay}} msec </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Mean Anomaly </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.mean_anomaly}}&deg; </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Orbital Phase </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.orbit_phase}}&deg; </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Orbital No. </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.orbit_num}} </div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Orbital Period </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.orbit_period}} min</div>
+					</div>
+					<div class="col-lg-12">
+						<div class="track_l"> Visibility </div>
+						<div class="track_c"> : </div>
+						<div class="track_r"> {{liveInfo.visibility}} </div>
+					</div>
+				{{/panel}}
+
+			</div>
+		</div>
+
+</div>
+
+</template>

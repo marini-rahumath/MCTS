@@ -1,0 +1,214 @@
+<template name="navigation">
+    <aside id="menu">
+        <div id="navigation">
+            <div class="profile-picture">
+                <a href="{{pathFor route='dashboard'}}">
+                    <img src="images/profile-empty-small.jpg" class="img-circle m-b" alt="logo">
+                </a>
+
+                <div class="stats-label text-color">
+                    {{#if currentUser}}
+                    <span class="font-extra-bold font-uppercase">{{currentUser.username}}</span>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" href="#" data-toggle="dropdown">
+                            <small class="text-muted">Options <b class="caret"></b></small>
+                        </a>
+                        <ul class="dropdown-menu animated flipInX m-t-xs">
+                            <!-- <li><a href="{{pathFor route='contacts'}}">Contacts</a></li> -->
+                            <!-- <li><a href="{{pathFor route='analytics'}}">Analytics</a></li> -->
+                            <li><a href="{{pathFor route='profile'}}">Profile</a></li>
+                            <li class="divider"></li>
+                            <li><a class="account-logout btn-secondary">Log Out</a></li>
+                        </ul>
+                    </div>
+                    {{else}}
+                    <span class="font-extra-bold font-uppercase">Guest</span>
+                    <div><a href="{{pathFor route='login'}}" class="btn-secondary">Login</a></div>
+                    <div><a href="{{pathFor route='join'}}" class="btn-secondary">Register</a></div>
+                    {{/if}}
+
+                    
+
+
+                    <!-- <div id="sparkline1" class="small-chart m-t-sm"></div> -->
+                    <!-- <div>
+                        <h4 class="font-extra-bold m-b-xs">
+                            $260 104,200
+                        </h4>
+                        <small class="text-muted">Your income from the last year in sales product X.</small>
+                    </div> -->
+                </div>
+            </div>
+
+            <!-- Navigation -->
+
+            <ul class="nav" id="side-menu">
+                <li class="{{isActiveRoute regex='real-time'}}">
+                    <a href="{{pathFor route='RealTime'}}"> 
+                        <span class="nav-label">Real Time</span> 
+                        <span class="label label-success pull-right"></span>
+                    </a>
+                </li>
+                
+                <li class="{{isActiveRoute regex='prediction'}}">
+                    <a href="{{pathFor route='Prediction'}}">
+                        <span class="nav-label predictions">Predictions</span>
+                        <span class="label label-warning pull-right"></span> 
+                    </a>
+                </li>
+
+                <li class="{{isActiveRoute regex='weather'}}">
+                    <a href="{{pathFor route='Weather'}}"> 
+                        <span class="nav-label">Weather</span> 
+                        <span class="label label-warning pull-right"></span> 
+                    </a>
+                </li>
+
+                <li class="{{isActiveRoute regex='settings'}}">
+                    <a href="{{pathFor route='Settings'}}"> 
+                        <span class="nav-label">Settings</span> 
+                        <span class="label label-warning pull-right"></span> 
+                    </a>
+                </li>
+                 <li class="{{isActiveRoute regex='settings'}}">
+                    <a href="{{pathFor route='Statistics'}}"> 
+                        <span class="nav-label">Data Records</span> 
+                        <span class="label label-warning pull-right"></span> 
+                    </a>
+                </li>
+
+                <li class="{{isActiveRoute regex='tasking'}}">
+                    <a href="{{pathFor route='Tasking'}}">
+                        <span class="nav-label">Tasking</span>
+                        <span class="label label-warning pull-right"></span>
+                    </a>
+                </li>
+
+                <!-- <li class="{{isActiveRoute regex='tncConfig|tncTec|tncSpeqs|tncTtnc|tncAdcs|tncObc|tncTest|tncTest2'}}"> -->
+                <li class="{{isActiveRoute regex='tncTest|tncTest2'}}">
+                    <a href="#"><span class="nav-label">TNC</span><span class="fa arrow"></span> </a>
+                    <!-- <ul class="nav nav-second-level {{isActiveRoute regex='tncConfig|tncTec|tncSpeqs|tncTtnc|tncAdcs|tncObc|tncTest|tncTest2' className='in'}}"> -->
+                    <ul class="nav nav-second-level {{isActiveRoute regex='tncTest|tncTest2' className='in'}}">
+                        <!-- <li class="{{isActiveRoute regex='tncConfig'}}"><a href="{{pathFor route='tncConfig'}}">Configuration</a></li>
+                        <li class="{{isActiveRoute regex='tncTec'}}"><a href="{{pathFor route='tncTec'}}">TEC</a></li>
+                        <li class="{{isActiveRoute regex='tncSpeqs'}}"><a href="{{pathFor route='tncSpeqs'}}">SPEQS</a></li>
+                        <li class="{{isActiveRoute regex='tncTtnc'}}"><a href="{{pathFor route='tncTtnc'}}">TT&amp;C</a></li>
+                        <li class="{{isActiveRoute regex='tncAdcs'}}"><a href="{{pathFor route='tncAdcs'}}">ADCS</a></li>
+                        <li class="{{isActiveRoute regex='tncObc'}}"><a href="{{pathFor route='tncObc'}}">OBC</a></li> -->
+                        <li class="{{isActiveRoute regex='tncTest'}}"><a href="{{pathFor route='tncTest'}}">TNC Test</a></li>
+                        <li class="{{isActiveRoute regex='tncTest2'}}"><a href="{{pathFor route='tncTest2'}}">TNC Main</a></li>
+                    </ul>
+                </li>
+
+                <!-- <li class="{{isActiveRoute regex='loadingButtons|codeEditor|panels|typography|buttons|components|alerts|modals|draggable|nestableList|tour|icons'}}">
+                    <a href="#"><span class="nav-label">Interface</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level {{isActiveRoute regex='loadingButtons|codeEditor|panels|typography|buttons|components|alerts|modals|draggable|nestableList|tour|icons' className='in'}}">
+                        <li class="{{isActiveRoute regex='panels'}}"><a href="{{pathFor route='panels'}}">Panels design</a></li>
+                        <li class="{{isActiveRoute regex='typography'}}"><a href="{{pathFor route='typography'}}">Typography</a></li>
+                        <li class="{{isActiveRoute regex='buttons'}}"><a href="{{pathFor route='buttons'}}">Colors &amp; Buttons</a></li>
+                        <li class="{{isActiveRoute regex='components'}}"><a href="{{pathFor route='components'}}">Components</a></li>
+                        <li class="{{isActiveRoute regex='alerts'}}"><a href="{{pathFor route='alerts'}}">Alerts</a></li>
+                        <li class="{{isActiveRoute regex='modals'}}"><a href="{{pathFor route='modals'}}">Modals</a></li>
+                        <li class="{{isActiveRoute regex='loadingButtons'}}"><a href="{{pathFor route='loadingButtons'}}">Loading buttons</a></li>
+                        <li class="{{isActiveRoute regex='draggable'}}"><a href="{{pathFor route='draggable'}}">Draggable panels</a></li>
+                        <li class="{{isActiveRoute regex='codeEditor'}}"><a href="{{pathFor route='codeEditor'}}">Code editor</a></li>
+                        <li><a href="emailTemplate/email_template.html">Email template</a></li>
+                        <li class="{{isActiveRoute regex='nestableList'}}"><a href="{{pathFor route='nestableList'}}">List</a></li>
+                        <li class="{{isActiveRoute regex='tour'}}"><a href="{{pathFor route='tour'}}">Tour</a></li>
+                        <li class="{{isActiveRoute regex='icons'}}"><a href="{{pathFor route='icons'}}">Icons library</a></li>
+                    </ul>
+                </li>
+                <li class="{{isActiveRoute regex='emailView|emailCompose|notes|appPlans|faq|contacts|projects|project|socialBoard|timeline|profile|mailbox|blog|blogDetails|forum|forumDetails|gallery|calendar|search|chatView|fileManager|invoice'}}">
+                    <a href="#"><span class="nav-label">App views</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level {{isActiveRoute regex='emailView|emailCompose|notes|appPlans|faq|contacts|projects|project|socialBoard|timeline|profile|mailbox|blog|blogDetails|forum|forumDetails|gallery|calendar|search|chatView|fileManager|invoice' className="in"}}">
+                        <li class="{{isActiveRoute regex='contacts'}}"><a href="{{pathFor route='contacts'}}">Contacts</a></li>
+                        <li class="{{isActiveRoute regex='projects'}}"><a href="{{pathFor route='projects'}}">Projects</a></li>
+                        <li class="{{isActiveRoute regex='project'}}"><a href="{{pathFor route='project'}}">Project detail</a></li>
+                        <li class="{{isActiveRoute regex='appPlans'}}"><a href="{{pathFor route='appPlans'}}">App plans</a></li>
+                        <li class="{{isActiveRoute regex='socialBoard'}}"><a href="{{pathFor route='socialBoard'}}">Social board</a></li>
+                        <li class="{{isActiveRoute regex='faq'}}"><a href="{{pathFor route='faq'}}">FAQ</a></li>
+                        <li class="{{isActiveRoute regex='timeline'}}"><a href="{{pathFor route='timeline'}}">Timeline</a></li>
+                        <li class="{{isActiveRoute regex='notes'}}"><a href="{{pathFor route='notes'}}">Notes</a></li>
+                        <li class="{{isActiveRoute regex='profile'}}"><a href="{{pathFor route='profile'}}">Profile</a></li>
+                        <li class="{{isActiveRoute regex='mailbox'}}"><a href="{{pathFor route='mailbox'}}">Mailbox</a></li>
+                        <li class="{{isActiveRoute regex='emailCompose'}}"><a href="{{pathFor route='emailCompose'}}">Email compose</a></li>
+                        <li class="{{isActiveRoute regex='emailView'}}"><a href="{{pathFor route='emailView'}}">Email view</a></li>
+                        <li class="{{isActiveRoute regex='blog'}}"><a href="{{pathFor route='blog'}}">Blog</a></li>
+                        <li class="{{isActiveRoute regex='blogDetails'}}"><a href="{{pathFor route='blogDetails'}}">Blog article</a></li>
+                        <li class="{{isActiveRoute regex='forum'}}"><a href="{{pathFor route='forum'}}">Forum</a></li>
+                        <li class="{{isActiveRoute regex='forumDetails'}}"><a href="{{pathFor route='forumDetails'}}">Forum details</a></li>
+                        <li class="{{isActiveRoute regex='gallery'}}"><a href="{{pathFor route='gallery'}}">Gallery</a></li>
+                        <li class="{{isActiveRoute regex='calendar'}}"><a href="{{pathFor route='calendar'}}">Calendar</a></li>
+                        <li class="{{isActiveRoute regex='invoice'}}"><a href="{{pathFor route='invoice'}}">Invoice</a></li>
+                        <li class="{{isActiveRoute regex='fileManager'}}"><a href="{{pathFor route='fileManager'}}">File manager</a></li>
+                        <li class="{{isActiveRoute regex='chatView'}}"><a href="{{pathFor route='chatView'}}">Chat view</a></li>
+                        <li class="{{isActiveRoute regex='search'}}"><a href="{{pathFor route='search'}}">Search view</a></li>
+                    </ul>
+                </li>
+                <li class="{{isActiveRoute regex='c3Charts|chartist|chartJs|flot|inlineGraphs'}}">
+                    <a href="#"><span class="nav-label">Charts</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level {{isActiveRoute regex='c3Charts|chartist|chartJs|flot|inlineGraphs' className="in"}}">
+                        <li class="{{isActiveRoute regex='chartJs'}}"><a href="{{pathFor route='chartJs'}}">ChartJs</a></li>
+                        <li class="{{isActiveRoute regex='flot'}}"><a href="{{pathFor route='flot'}}">Flot charts</a></li>
+                        <li class="{{isActiveRoute regex='inlineGraphs'}}"><a href="{{pathFor route='inlineGraphs'}}">Inline graphs</a></li>
+                        <li class="{{isActiveRoute regex='chartist'}}"><a href="{{pathFor route='chartist'}}">Chartist</a></li>
+                        <li class="{{isActiveRoute regex='c3Charts'}}"><a href="{{pathFor route='c3Charts'}}">C3 Charts</a></li>
+                    </ul>
+                </li>
+                <li class="{{isActiveRoute regex='transitionOverview|transitionOne|transitionTwo|transitionThree|transitionFour|transitionFive'}}">
+                    <a href="#"><span class="nav-label">Box transitions</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level {{isActiveRoute regex='transitionOverview|transitionOne|transitionTwo|transitionThree|transitionFour|transitionFive' className="in"}}">
+                        <li class="{{isActiveRoute regex='transitionOverview'}}"><a href="{{pathFor route='transitionOverview'}}"><span class="label label-success pull-right">Start</span> Overview </a>  </li>
+                        <li class="{{isActiveRoute regex='transitionOne'}}"><a href="{{pathFor route='transitionOne'}}">Columns from up</a></li>
+                        <li class="{{isActiveRoute regex='transitionTwo'}}"><a href="{{pathFor route='transitionTwo'}}">Columns custom</a></li>
+                        <li class="{{isActiveRoute regex='transitionThree'}}"><a href="{{pathFor route='transitionThree'}}">Panels zoom</a></li>
+                        <li class="{{isActiveRoute regex='transitionFour'}}"><a href="{{pathFor route='transitionFour'}}">Rows from down</a></li>
+                        <li class="{{isActiveRoute regex='transitionFive'}}"><a href="{{pathFor route='transitionFive'}}">Rows from right</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#"><span class="nav-label">Common views</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="{{pathFor route='login'}}">Login</a></li>
+                        <li><a href="{{pathFor route='register'}}">Register</a></li>
+                        <li><a href="{{pathFor route='errorOne'}}">Error 404</a></li>
+                        <li><a href="{{pathFor route='errorTwo'}}">Error 505</a></li>
+                        <li><a href="{{pathFor route='lock'}}">Lock screen</a></li>
+                        <li><a href="{{pathFor route='passwordRecovery'}}">Password recovery</a></li>
+                    </ul>
+                </li>
+                <li class="{{isActiveRoute regex='tablesDesign|dataTables|fooTable'}}">
+                    <a href="#"><span class="nav-label">Tables</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level {{isActiveRoute regex='tablesDesign|dataTables|fooTable' className="in"}}">
+                        <li class="{{isActiveRoute regex='tablesDesign'}}"><a href="{{pathFor route='tablesDesign'}}">Tables design</a></li>
+                        <li class="{{isActiveRoute regex='dataTables'}}"><a href="{{pathFor route='dataTables'}}">Data tables</a></li>
+                        <li class="{{isActiveRoute regex='fooTable'}}"><a href="{{pathFor route='fooTable'}}">Foo Table</a></li>
+
+                    </ul>
+                </li>
+                <li class="{{isActiveRoute regex='widgets'}}">
+                    <a href="{{pathFor route='widgets'}}"> <span class="nav-label">Widgets</span> <span class="label label-success pull-right">Special</span></a>
+                </li>
+                <li class="{{isActiveRoute regex='formsElements|formsExtended|textEditor|wizard|validation'}}">
+                    <a href="#"><span class="nav-label">Forms</span><span class="fa arrow"></span> </a>
+                    <ul class="nav nav-second-level {{isActiveRoute regex='formsElements|formsExtended|textEditor|wizard|validation' className="in"}}">
+                        <li class="{{isActiveRoute regex='formsElements'}}"><a href="{{pathFor route='formsElements'}}">Forms elements</a></li>
+                        <li class="{{isActiveRoute regex='formsExtended'}}"><a href="{{pathFor route='formsExtended'}}">Forms extended</a></li>
+                        <li class="{{isActiveRoute regex='textEditor'}}"><a href="{{pathFor route='textEditor'}}">Text editor</a></li>
+                        <li class="{{isActiveRoute regex='wizard'}}"><a href="{{pathFor route='wizard'}}">Wizard</a></li>
+                        <li class="{{isActiveRoute regex='validation'}}"><a href="{{pathFor route='validation'}}">Validation</a></li>
+                    </ul>
+                </li>
+                <li class="{{isActiveRoute regex='options'}}">
+                    <a href="{{pathFor route='options'}}"> <span class="nav-label">Layout options</span></a>
+                </li>
+                <li class="{{isActiveRoute regex='layouts'}}">
+                    <a href="{{pathFor route='gridSystem'}}"> <span class="nav-label">Grid system</span></a>
+                </li>
+                <li>
+                    <a href="{{pathFor route='landingPage'}}"> <span class="nav-label">Landing page</span></a>
+                </li> -->
+            </ul>
+        </div>
+    </aside>
+</template>

@@ -1,0 +1,96 @@
+<template name="tncAdcs">
+
+	<div class="content">
+		<div class="row">
+			<div class="col-lg-5 col-xs-12 tooltip-demo">
+				{{#panel}}
+
+				<div class="col-lg-12 border-bottom m-b-sm">
+					<h3><b>ADCS Configuration</b></h3>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 m-b-sm">
+						<div class="col-lg-10 col-xs-10">
+							<button class="btn btn-info btn-block turnOnADCS" data-toggle="tooltip" data-placement="bottom" title="Turns on the active ADCS payload.">
+								Turn on ADCS
+							</button>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 m-b-sm">
+						<div class="col-lg-10 col-xs-10">
+							<button class="btn btn-info btn-block turnOffADCS" data-toggle="tooltip" data-placement="bottom" title="Turns off the active ADCS payload.">
+								Turn off ADCS
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 m-b-sm">
+						<div class="col-lg-10 col-xs-10">
+							<button class="btn btn-info btn-block turnOffADCS" data-toggle="tooltip" data-placement="bottom" title="Turns off the active ADCS payload.">
+								Gets ADCS housekeeping data
+							</button>
+						</div>
+					</div>
+				</div>
+
+
+				{{/panel}}
+			</div>
+
+			<!-- Terminal  -->
+			<!-- <div class="col-lg-7 col-xs-12">
+				{{#panel}}
+				<div class="col-lg-12">
+					<div class="row border-bottom m-b-sm">
+						<div class="col-xs-8">
+							<h3><b>Terminal Log</b></h3>
+						</div>
+
+						<div class="col-xs-2">
+							<button class="btn btn-default btn-block startCSP m-t-xs">Start</button>
+						</div>
+						<div class="col-xs-2">
+							<button class="btn btn-default btn-block killCSP m-t-xs">Stop</button>
+						</div>
+					</div>
+					
+					<div class="row">
+						<div class="chat-discussion">
+							{{#with tncData}}
+							{{#each data in tncData}}
+							<div class="chat-message left">
+								<img class="message-avatar" src="images/p1.jpg" alt="" >
+								<div class="message">
+									<a class="message-author" href="#"> Guest </a>
+									<span class="message-date">  Timestamp is {{data.time}} </span>
+									<span class="message-content">
+										<pre class="logFormat">{{breaklines data.content}}</pre>
+									</span>
+								</div>
+							</div>
+							{{/each}}
+							{{/with}}
+						</div>
+					</div>
+
+					<div class="input-group">
+						<input type="text" class="form-control commandGo commandText" placeholder="Type your commands here...">
+						<span class="input-group-btn">
+							<button class="btn btn-success sendCommand">Send</button>
+						</span>
+					</div>
+				</div>
+				{{/panel}}
+			</div> -->
+
+			{{> tncmock}}
+
+		</div>
+	</div>
+
+</template>

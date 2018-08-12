@@ -1,0 +1,128 @@
+<template name="Weather">
+    <div class="content">
+
+        <!-- Solar Flare and Geomagnetic Information -->
+        <div class="row">
+            <div class="col-lg-12">
+            {{#panel}}
+
+            {{#with solarAndGeomagneticInfo}}
+            <div class="col-lg-12">
+                <h5>{{solarAndGeomagneticInfo.authorOfDataString}}</h5>
+            </div>
+            <div class="col-lg-12">
+                <h5>Issued On: {{solarAndGeomagneticInfo.issueString}}</h5>
+            </div>
+            {{#each data in solarAndGeomagneticInfo.resultArr}}
+            <div class="col-lg-12 border-top m-t-md">
+                <h4>{{data.mainTableHeader}}</h4>
+            </div>
+            <div class="col-lg-12 m-t-xs">    
+                <div class="table-responsive">
+                    <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped">	
+                        <thead>
+                            <tr>
+                                <th class="predict_cover text-center"> </th>
+                                {{#each colHeader in data.tableColHeaders}}
+                                <th class="predict_cover text-center">{{colHeader}}</th>
+                                {{/each}}    
+                            </tr>
+                        </thead>
+                        {{#each rowData in data.tableRow}}
+                        <tbody>
+                            <tr>
+                                {{#each rowElement in rowData}}
+                                <td class="text-center"> {{rowElement}} </td>
+                                {{/each}}
+                            </tr>
+                        </tbody>
+                        {{/each}}
+                    </table>
+                </div>
+            </div>
+            <div class = "col-lg-12">
+                <p>{{data.tableRationale}}</p>
+            </div>
+            <div class = "col-lg-12">
+                <p> Info: {{data.tableInfo}}</p>
+            </div>
+            {{/each}}
+            {{/with}}
+            {{/panel}}
+            </div>
+        </div>
+
+        <!-- Weather prediction -->
+        <div class="row">
+            <div class="col-lg-12">
+                {{#panel}}
+                <div class="col-lg-12 border-bottom m-b-sm">
+                    <h4> Cloud Cover Prediction </h4>
+                </div>
+                <div class="col-lg-4 col-xs-12 m-t-sm">
+                    <label> Latitude </label>
+                    <input type="text" value="1.3667" class="form-control latitude"/>
+                </div>
+                <div class="col-lg-4 col-xs-12 m-t-sm">
+                    <label> Longtitude </label>
+                    <input type="text" value="103.9832" class="form-control longtitude"/>
+                </div>
+                <div class="col-lg-4 col-xs-12 m-t-sm">
+                    <div class="m-t-xs"></div>
+                    <label></label>
+                    <button class="btn btn-block btn-info run-weatherForecast">
+                        Predict Cloud Cover
+                    </button>
+                </div>
+                <div class="col-lg-12 col-xs-12 m-t-sm">
+                    <label>
+                        <input type="checkbox" class="toggle-timezone"/>
+                        Toggle Timezone {{#if timezone}}(GMT+8){{else}}(UTC){{/if}}
+                    </label>
+                </div>
+                {{/panel}}
+            </div>
+        </div>
+
+        <div class="row">
+            {{#with forecast}}
+            {{#if forecast.show}}
+            {{#each data in forecast.data}}
+            <div class="col-lg-4">
+                {{#panel}}
+                <div class="predict_name">{{data.type}}</div>
+                <div class = "table-responsive">
+                    <table cellpadding="1" cellspacing="1" class="table table-bordered table-striped table-hover">
+                        <thead>
+                            <tr>
+                                <th class="predict_date_time text-center">
+                                    Date &#38; Time {{#if timezone}}(GMT+8){{else}}(UTC){{/if}}
+                                </th>
+                                <th class="predict_cover text-center">Estimated Cloud Cover</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {{#each ele in data.array}}
+                            <tr>
+                                <td class="text-center">
+                                    <div class="predict_date_time_wrapper">
+                                        <div> 
+                                            {{#if timezone}} {{ele.timeOfForecast}} {{else}} {{ele.UTCTimeOfForecast}} {{/if}}
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">{{ele.cloudCover}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div> 
+                {{/panel}}
+            </div>
+            {{/each}}
+            {{/if}}
+            {{/with}}
+        </div>
+
+    </div>
+</template>

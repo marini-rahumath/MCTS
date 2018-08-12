@@ -1,0 +1,42 @@
+<template name="header">
+    <div id="header">
+        <div class="color-line">
+        </div>
+
+        <div id="logo" class="light-version">
+        <span>
+            Satellite Console
+        </span>
+        </div>
+
+        <div class="header-link hide-menu"><i class="fa fa-bars"></i></div>
+        <span class="time text-primary"> {{getTimeAndDateHeader}} </span><br>
+        <!--<div class="small-logo">-->
+            <!--<span class="text-primary">Satellite App</span>-->
+        <!--</div>-->
+        <!-- <form role="search" class="navbar-form-custom" method="post" action="#">
+            <div class="form-group">
+                <input type="text" placeholder="Search something special" class="form-control" name="search">
+            </div>
+        </form> -->
+        <div class="mobile-menu">
+            <button type="button" class="navbar-toggle mobile-menu-toggle" data-toggle="collapse" data-target="#mobile-collapse">
+                <i class="fa fa-chevron-down"></i>
+            </button>
+            <div class="collapse mobile-navbar" id="mobile-collapse">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <a class="" href="{{pathFor route='login'}}">Login</a>
+                    </li>
+                    <li>
+                        <a class="" href="{{pathFor route='login'}}">Logout</a>
+                    </li>
+                    <li>
+                        <a class="" href="{{pathFor route='profile'}}">Profile</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</template>

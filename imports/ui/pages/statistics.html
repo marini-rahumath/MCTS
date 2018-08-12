@@ -1,0 +1,66 @@
+<template name="statistics">
+	<div class="content">
+		<div class="row">
+
+			<div class="col-lg-2">
+				{{#panel}}
+				<div class="row">
+					<div class="col-xs-12 m-b-sm">
+						<button class="btn btn-block getdata"> Get Data </button>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-xs-12 m-b-sm">
+						<button class="btn btn-block dropdata"> Drop Data </button>
+					</div>
+				</div>
+				
+				<div class="row">
+					<div class="col-xs-12 m-b-sm">
+						<div class="form-group">
+							<label for="selectDataSet"> Satellite Data Records: </label>
+							<select class="form-control enableParams" id="selectDataSet">
+								<option value="epshk"> epshk </option>
+								<option value="globalVar"> globalVar </option>
+								<option value="nanocomhk"> nanocomhk </option>
+								<option value="errorlog"> errorlog </option>
+								<option value="flashvar"> flashvar </option>
+								<option value="hkdata"> hkdata </option>
+								<option value="nanocomdata"> nanocomdata </option>
+								<option value="nanocomrssi"> nanocomrssi </option>
+								<option value="nanohubhk"> nanohubhk </option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 m-b-sm">
+						<button class="btn btn-block showdata"> Display Data </button>
+					</div>
+				</div>
+
+				<div class="row">
+					<div class="col-xs-12 m-b-sm">
+						<div class="form-group">
+							<label for="selectParameter"> Parameters: </label>
+							<select class="form-control showparam" id="selectParameter">
+								{{#each parameter in listParameters}}
+								<option value="{{paramter}}"> {{parameter}} </option>
+								{{/each}}
+							</select>
+						</div>
+					</div>
+				</div>
+				{{/panel}}
+			</div>
+
+			<div class="col-lg-10">
+				{{#panel}}
+				<div id="scatterchart"></div>
+				{{/panel}}
+			</div>
+			
+		</div>
+	</div>
+</template>

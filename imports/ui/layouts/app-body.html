@@ -1,0 +1,15 @@
+<template name="App_body">
+
+    <!-- {{> splash }} -->
+
+    {{> header }}
+
+    {{> navigation }}
+    <div id="wrapper">
+        <!-- Equvialent to iron router {{> yield}} -->
+        {{> Template.dynamic template=main}}
+
+        {{> footer}}
+
+    </div>
+</template>
