@@ -8,7 +8,7 @@ import nite from '../../api/prediction/nite-overlay.js';
 import PLib3 from '../../api/prediction/predictlib.js';
 import mapui from '../../api/prediction/mapui.js';
 import '../../api/prediction/maplabel.js';
-
+var popupS = require('popups');
 var satTrackDep = new Deps.Dependency();
 var satInterval;
 var info;
@@ -725,6 +725,7 @@ function showArrays(event) {
     infoWindow.open(taskMap);
 }
 
+
 function getPrediction(){
     console.log("before passes");
     const passes = PLib.getTodaysPasses(1);
@@ -843,6 +844,29 @@ Template.Tasking.onRendered(function () {
 
 });
 
+// Default setting for plan task
+var photosPerPass = 5;
+var numDays = 7;
+var cameraSize = 80; // in km
+var overlapPercentage = 30;
+var degGS = 15; // in deg
+var degGSTR = 15; // in deg
+var degGSTL = 15; // in deg
+var degGSBL = 15; // in deg
+var degGSBR = 15; // in deg
+
+// Default setting for download task
+var exposureTime = 150000;
+var imageGain = 1;
+var pixelFormat = 0;
+var preambleAmount = 3;
+var postambleAmount = 2;
+var frequency = 2290;
+var sps = 2;
+var modulation = 0;
+var txGain = 89.8;
+var arbdl = 0;
+
 Template.Tasking.events({
     'click .calculate-distance'(event, instance) {
         var p1lat = document.getElementById('p1lat').value;
@@ -878,51 +902,300 @@ Template.Tasking.events({
         satTrack();
         //satNextPass();
     },
+
+    'click .editPlanTaskDetails'(event, instance){
+
+        popupS.confirm({
+            content:                       '<div class="row">\n' +
+                                            '<div class="form-group col-lg-4">\n' +
+                '                                <h5>Number of days for mission</h5>\n' +
+                '                                <select class="form-control" id="numDays">\n' +
+                '                                    <option value="1">1</option>\n' +
+                '                                    <option value="2">2</option>\n' +
+                '                                    <option value="3">3</option>\n' +
+                '                                    <option value="4">4</option>\n' +
+                '                                    <option value="5">5</option>\n' +
+                '                                    <option value="6">6</option>\n' +
+                '                                    <option value="7">7</option>\n' +
+                '                                    <option value="8">8</option>\n' +
+                '                                </select>\n' +
+                '                           </div>' +
+                '                           <div class="form-group col-lg-4">\n' +
+                '                                <h5>Number of photos per pass</h5>\n' +
+                '                                <select class="form-control" id="numPhotos">\n' +
+                '                                    <option value="1">1</option>\n' +
+                '                                    <option value="2">2</option>\n' +
+                '                                    <option value="3">3</option>\n' +
+                '                                    <option value="4">4</option>\n' +
+                '                                    <option value="5">5</option>\n' +
+                '                                    <option value="6">6</option>\n' +
+                '                                    <option value="7">7</option>\n' +
+                '                                    <option value="8">8</option>\n' +
+                '                                    <option>show all</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-4">\n' +
+                '                                <h5>Camera size (in km)</h5>\n' +
+                '                                <select class="form-control" id="cameraSize">\n' +
+                '                                    <option value="60">60</option>\n' +
+                '                                    <option value="70">70</option>\n' +
+                '                                    <option value="80">80</option>\n' +
+                '                                    <option value="90">90</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                                           '</div>\n' +
+                '<div class="row">\n' +
+                '                            <div class="form-group col-lg-4">\n' +
+                '                                <h5>Overlap (in %)</h5>\n' +
+                '                                <select class="form-control" id="overlapPercentage">\n' +
+                '                                    <option value="20">20</option>\n' +
+                '                                    <option value="30">30</option>\n' +
+                '                                    <option value="40">40</option>\n' +
+                '                                    <option value="50">50</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-4">\n' +
+                '                                <!--degree of slant to form radius-->\n' +
+                '                                <h5>Degree from GS (in deg)</h5>\n' +
+                '                                <select class="form-control" id="degGS">\n' +
+                '                                    <option value="10">10</option>\n' +
+                '                                    <option value="15">15</option>\n' +
+                '                                    <option value="20">20</option>\n' +
+                '                                    <option value="25">25</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-4">\n' +
+                '                                <!--degree of slant to form radius-->\n' +
+                '                                <h5>Top Right Quadrant Degree from GS (in deg)</h5>\n' +
+                '                                <select class="form-control" id="degGS1">\n' +
+                '                                    <option value="10">10</option>\n' +
+                '                                    <option value="15">15</option>\n' +
+                '                                    <option value="20">20</option>\n' +
+                '                                    <option value="25">25</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            </div>\n' +
+                '<div class="row">\n' +
+                '                            <div class="form-group col-lg-4">\n' +
+                '                                <!--degree of slant to form radius-->\n' +
+                '                                <h5>Top Left Quadrant Degree from GS (in deg)</h5>\n' +
+                '                                <select class="form-control" id="degGS2">\n' +
+                '                                    <option value="10">10</option>\n' +
+                '                                    <option value="15">15</option>\n' +
+                '                                    <option value="20">20</option>\n' +
+                '                                    <option value="25">25</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-4">\n' +
+                '                                <!--degree of slant to form radius-->\n' +
+                '                                <h5>Bottom Left Quadrant Degree from GS (in deg)</h5>\n' +
+                '                                <select class="form-control" id="degGS3">\n' +
+                '                                    <option value="10">10</option>\n' +
+                '                                    <option value="15">15</option>\n' +
+                '                                    <option value="20">20</option>\n' +
+                '                                    <option value="25">25</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-4">\n' +
+                '                                <!--degree of slant to form radius-->\n' +
+                '                                <h5>Bottom Right Quadrant Degree from GS (in deg)</h5>\n' +
+                '                                <select class="form-control" id="degGS4">\n' +
+                '                                    <option value="10">10</option>\n' +
+                '                                    <option value="15">15</option>\n' +
+                '                                    <option value="20">20</option>\n' +
+                '                                    <option value="25">25</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            </div>\n' +
+                '                        </div>',
+
+            labelOk:     'Save',
+            labelCancel: 'Cancel',
+            onOpen: function(){
+                document.getElementById('numPhotos').value = photosPerPass;
+                document.getElementById('numDays').value = numDays;
+                document.getElementById('cameraSize').value = cameraSize; // in km
+                document.getElementById('overlapPercentage').value = overlapPercentage;
+                document.getElementById('degGS').value = degGS; // in deg
+                document.getElementById('degGS1').value = degGSTR; // in deg
+                document.getElementById('degGS2').value = degGSTL; // in deg
+                document.getElementById('degGS3').value = degGSBL; // in deg
+                document.getElementById('degGS4').value = degGSBR; // in deg
+            },
+            onSubmit: function() {
+                photosPerPass = document.getElementById('numPhotos').value;
+                numDays = document.getElementById('numDays').value;
+                cameraSize = document.getElementById('cameraSize').value; // in km
+                overlapPercentage = document.getElementById('overlapPercentage').value;
+                degGS = document.getElementById('degGS').value; // in deg
+                degGSTR = document.getElementById('degGS1').value; // in deg
+                degGSTL = document.getElementById('degGS2').value; // in deg
+                degGSBL = document.getElementById('degGS3').value; // in deg
+                degGSBR = document.getElementById('degGS4').value; // in deg
+                console.log("user saved inputs: " + photosPerPass, numDays, cameraSize, overlapPercentage);
+            },
+            onClose: function() {
+                console.log("user cancel inputs: " + photosPerPass, numDays, cameraSize, overlapPercentage);
+            }
+        });
+    },
+
     'click .showTaskCoords'(event, instance){
-        var photosPerPass = document.getElementById('numPhotos').value;
-        var numDays = document.getElementById('numDays').value;
-        var cameraSize = document.getElementById('cameraSize').value; // in km
-        var overlapPercentage = document.getElementById('overlapPercentage').value;
-        var degGS = document.getElementById('degGS').value; // in deg
-        var degGSTR = document.getElementById('degGS1').value; // in deg
-        var degGSTL = document.getElementById('degGS2').value; // in deg
-        var degGSBL = document.getElementById('degGS3').value; // in deg
-        var degGSBR = document.getElementById('degGS4').value; // in deg
         this.flightPathView = flightPathView.clearMap();
         satellitesMap.addGroundStationBoundary(degGS, degGSTR, degGSTL, degGSBL, degGSBR);
         console.log("user inputs: " + photosPerPass, numDays, cameraSize, overlapPercentage);
         getTaskCoords(photosPerPass, numDays, cameraSize, overlapPercentage);
         this.flightPathView = flightPathView.plotFlightPath(taskMap);
-
         if (coordsPrint.length != 0){
             alert("Finished Tasking!");
         }
     },
-
+    'click .editDownloadTask'(event, instance){
+        popupS.confirm({
+            content:     '                <div class="col-lg-12 border-bottom m-b-sm">\n' +
+                '                        <h4>Download Task</h4>\n' +
+                '                         </div>\n' +
+                '                        <div class="row">\n' +
+                '                        <div class="form-group col-lg-3">\n' +
+                '                            <h5>Exposure Time (microseconds):</h5>\n' +
+                '                            <input class="form-control" type="number" id="exposureTime" min="0" max="500000" value="150000">\n' +
+                '                        </div>\n' +
+                '                        <div class="form-group col-lg-3">\n' +
+                '                            <h5>Image Gain:</h5>\n' +
+                '                            <select class="form-control" id="imageGain">\n' +
+                '                                <option value="1">1</option>\n' +
+                '                                <option value="2">2</option>\n' +
+                '                                <option value="3">3</option>\n' +
+                '                                <option value="4">4</option>\n' +
+                '                                <option value="5">5</option>\n' +
+                '                                <option value="6">6</option>\n' +
+                '                                <option value="7">7</option>\n' +
+                '                                <option value="8">8</option>\n' +
+                '                                <option value="9">9</option>\n' +
+                '                                <option value="10">10</option>\n' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                        <div class="form-group col-lg-3">\n' +
+                '                            <h5>Pixel Format:</h5>\n' +
+                '                            <select class="form-control" id="pixelFormat">\n' +
+                '                                <option value="0">mono12p</option>\n' +
+                '                                <option value="1">mono10p</option>\n' +
+                '                                <option value="2">mono8p</option>\n' +
+                '                            </select>\n' +
+                '                        </div>\n' +
+                '                    </div>\n' +
+                '                    <div class="col-lg-12 border-bottom m-b-sm">\n' +
+                '                        <h4>Download Downlink Task</h4>\n' +
+                '                    </div>\n' +
+                '                    <div class="row">\n' +
+                '                        <div class="row padding">\n' +
+                '                            <div class="form-group col-lg-3">\n' +
+                '                                <h5>Preamble Amount:</h5>\n' +
+                '                                <select class="form-control" id="preambleAmount">\n' +
+                '                                    <option value="1">1</option>\n' +
+                '                                    <option value="2">2</option>\n' +
+                '                                    <option value="3">3</option>\n' +
+                '                                    <option value="4">4</option>\n' +
+                '                                    <option value="5">5</option>\n' +
+                '                                    <option value="6">6</option>\n' +
+                '                                    <option value="7">7</option>\n' +
+                '                                    <option value="8">8</option>\n' +
+                '                                    <option value="9">9</option>\n' +
+                '                                    <option value="10">10</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-3">\n' +
+                '                                <h5>Postamble Amount:</h5>\n' +
+                '                                <select class="form-control" id="postambleAmount">\n' +
+                '                                    <option value="2">2</option>\n' +
+                '                                    <option value="3">3</option>\n' +
+                '                                    <option value="4">4</option>\n' +
+                '                                    <option value="5">5</option>\n' +
+                '                                    <option value="6">6</option>\n' +
+                '                                    <option value="7">7</option>\n' +
+                '                                    <option value="8">8</option>\n' +
+                '                                    <option value="9">9</option>\n' +
+                '                                    <option value="10">10</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-3">\n' +
+                '                                <h5>Frequency (MHz): </h5>\n' +
+                '                                <input class="form-control" type="number" id="frequency" min="2200" max="2290" value="2290">\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-3">\n' +
+                '                                <h5>SPS:</h5>\n' +
+                '                                <select class="form-control" id="sps">\n' +
+                '                                    <option value="2">2</option>\n' +
+                '                                    <option value="4">4</option>\n' +
+                '                                    <option value="5">5</option>\n' +
+                '                                    <option value="8">8</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                        </div>\n' +
+                '                        <div class="row padding">\n' +
+                '                            <div class="form-group col-lg-3">\n' +
+                '                                <h5>Modulation:</h5>\n' +
+                '                                <select class="form-control" id="modulation">\n' +
+                '                                    <option value ="0">bpsk</option>\n' +
+                '                                    <option value="1">qpsk</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-3">\n' +
+                '                                <h5>txGain(dB): </h5>\n' +
+                '                                <input class="form-control" type="number" id="txGain" min="2200" max="50" value="89.8">\n' +
+                '                            </div>\n' +
+                '                            <div class="form-group col-lg-3">\n' +
+                '                                <h5>arbDL:</h5>\n' +
+                '                                <select class="form-control" id="arbdl">\n' +
+                '                                    <option value="0">Non-arbitrary</option>\n' +
+                '                                    <option value="1">Arbitrary</option>\n' +
+                '                                    <option value="2">Multiple</option>\n' +
+                '                                </select>\n' +
+                '                            </div>',
+            labelOk:     'Save',
+            labelCancel: 'Cancel',
+            onOpen: function(){
+                document.getElementById('exposureTime').value = exposureTime;
+                document.getElementById('imageGain').value = imageGain;
+                document.getElementById('pixelFormat').value = pixelFormat;
+                document.getElementById('preambleAmount').value = preambleAmount;
+                document.getElementById('postambleAmount').value = postambleAmount;
+                document.getElementById('frequency').value = frequency;
+                document.getElementById('sps').value = sps;
+                document.getElementById('modulation').value = modulation;
+                document.getElementById('txGain').value = txGain;
+                document.getElementById('arbdl').value = arbdl;
+            },
+            onSubmit: function() {
+                exposureTime = document.getElementById('exposureTime').value;
+                imageGain = document.getElementById('imageGain').value;
+                pixelFormat = document.getElementById('pixelFormat').value;
+                preambleAmount = document.getElementById('preambleAmount').value;
+                postambleAmount = document.getElementById('postambleAmount').value;
+                frequency = document.getElementById('frequency').value;
+                sps = document.getElementById('sps').value;
+                modulation = document.getElementById('modulation').value;
+                txGain = document.getElementById('txGain').value;
+                arbdl = document.getElementById('arbdl').value;
+                console.log("user saved inputs: " + exposureTime, imageGain, pixelFormat, preambleAmount);
+            },
+            onClose: function() {
+                console.log("user cancel inputs: " + exposureTime, imageGain, pixelFormat, preambleAmount);
+            }
+        });
+    },
     'click .downloadTask'(event, instance){
+        if (coordsPrint.length == 0){
+            alert("Please plan a task first!");
+        }
         var date = Math.round((new Date()).getTime() / 1000);
         var downlinkTime = timingGS[0].start.getTime() / 1000;
 
-
-        // GET INFORMATION
-        var exposureTime = document.getElementById('exposureTime').value;
-        var imageGain = document.getElementById('imageGain').value;
-        var pixelFormat = document.getElementById('pixelFormat').value;
-        var preambleAmount = document.getElementById('preambleAmount').value;
-        var postambleAmount = document.getElementById('postambleAmount').value;
-        var frequency = document.getElementById('frequency').value;
-        var sps = document.getElementById('sps').value;
-        var modulation = document.getElementById('modulation').value;
-        var txGain = document.getElementById('txGain').value;
-        var arbdl = document.getElementById('arbdl').value;
 
         // Error Prevention
 
         if (exposureTime <0 || exposureTime > 500000){
             alert("Exposure time must be between 0 - 500000 microseconds!");
-        }
-        else if (coordsPrint.length == 0){
-            alert("Please plan a task first!");
         }
         else if (frequency <2200 || frequency > 2290){
             alert("Frequency must be between 2200 - 2290 MHz!");

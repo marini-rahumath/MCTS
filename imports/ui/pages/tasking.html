@@ -19,11 +19,11 @@
 
 
         <div class="row">
-            <div class="col-lg-12">
+            <div class="col-lg-4">
                 {{#panel}}
 
                     <div class="row">
-                        <div class="col-lg-12 col-xs-12">
+                        <div class="col-lg-12">
                             <div class="col-lg-12 border-bottom m-b-sm">
                                 <h4>Choose Satellite   </h4>
                             </div>
@@ -39,264 +39,69 @@
                     </div>
                 {{/panel}}
             </div>
-        </div>
 
-        <!--SHOW TASK COORDS-->
-        <div class="row">
-            <div class="col-lg-12">
+
+        <!--&lt;!&ndash;SHOW TASK COORDS&ndash;&gt;-->
+        <!--<div class="row">-->
+            <div class="col-lg-4">
                 {{#panel}}
+                    <div class="row">
+                        <div class="col-lg-12">
                     <div class="col-lg-12 border-bottom m-b-sm">
                         <h4>Plan Task</h4>
                     </div>
-                    <div class="row">
-                        <div class="col-lg-11">
-                            <div class="form-group col-lg-3">
-                                <h5>Number of days for mission</h5>
-                                <select class="form-control" id="numDays">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option selected="selected">7</option>
-                                    <option>8</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <h5>Number of photos per pass</h5>
-                                <select class="form-control" id="numPhotos">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option  selected="selected">5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>show all</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <h5>Camera size (in km)</h5>
-                                <select class="form-control" id="cameraSize">
-                                    <option>60</option>
-                                    <option>70</option>
-                                    <option selected="selected">80</option>
-                                    <option>90</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <h5>Overlap (in %)</h5>
-                                <select class="form-control" id="overlapPercentage">
-                                    <option>20</option>
-                                    <option selected="selected">30</option>
-                                    <option>40</option>
-                                    <option>50</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <!--degree of slant to form radius-->
-                                <h5>Degree from GS (in deg)</h5>
-                                <select class="form-control" id="degGS">
-                                    <option>10</option>
-                                    <option selected="selected">15</option>
-                                    <option>20</option>
-                                    <option>25</option>
-                                </select>
-                            </div>
-
-                            <div class="form-group col-lg-3">
-                                <!--degree of slant to form radius-->
-                                <h5>Top Right Quadrant Degree from GS (in deg)</h5>
-                                <select class="form-control" id="degGS1">
-                                    <option>10</option>
-                                    <option selected="selected">15</option>
-                                    <option>20</option>
-                                    <option>25</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <!--degree of slant to form radius-->
-                                <h5>Top Left Quadrant Degree from GS (in deg)</h5>
-                                <select class="form-control" id="degGS2">
-                                    <option>10</option>
-                                    <option selected="selected">15</option>
-                                    <option>20</option>
-                                    <option>25</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <!--degree of slant to form radius-->
-                                <h5>Bottom Left Quadrant Degree from GS (in deg)</h5>
-                                <select class="form-control" id="degGS3">
-                                    <option>10</option>
-                                    <option selected="selected">15</option>
-                                    <option>20</option>
-                                    <option>25</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <!--degree of slant to form radius-->
-                                <h5>Bottom Right Quadrant Degree from GS (in deg)</h5>
-                                <select class="form-control" id="degGS4">
-                                    <option>10</option>
-                                    <option selected="selected">15</option>
-                                    <option>20</option>
-                                    <option>25</option>
-                                </select>
-                            </div>
-
-                        </div>
-                        <div class="col-lg-1 padding">
-                            <button class="btn btn-info btn-block showTaskCoords">
-                                GO
+                            <div class="row">
+                        <div class="col-lg-8 ">
+                            <button  class="btn btn-info btn-block showTaskCoords" style="font-weight: bold;">
+                                Plan
                             </button>
                         </div>
-                        <!--<div class="padding"></div>-->
+                        <div class="col-lg-4">
+                            <button class="btn btn-info btn-block editPlanTaskDetails" style="font-weight: bold;">
+                                Edit
+                            </button>
+                        </div>
+                            </div>
+                        </div>
                     </div>
 
                 {{/panel}}
             </div>
-        </div>
+        <!--</div>-->
 
 
 
-        <!--DOWNLOAD IMAGING TASK-->
-        <div class="row">
-            <div class="col-lg-12">
-
+        <!--&lt;!&ndash;DOWNLOAD IMAGING TASK&ndash;&gt;-->
+        <!--<div class="row">-->
+            <div class="col-lg-4">
                 {{#panel}}
+                <div class="row">
+                <div class="col-lg-12">
                     <div class="col-lg-12 border-bottom m-b-sm">
-                        <h4>Download Imaging Task</h4>
+                        <h4>Download Task</h4>
                     </div>
                     <div class="row">
-                        <div class="form-group col-lg-3">
-                            <h5>Exposure Time (microseconds):</h5>
-                            <input class="form-control" type="number" id="exposureTime" min="0" max="500000" value="150000">
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <h5>Image Gain:</h5>
-                            <select class="form-control" id="imageGain">
-                                <option selected="selected">1</option>
-                                <option>2</option>
-                                <option>3</option>
-                                <option>4</option>
-                                <option>5</option>
-                                <option>6</option>
-                                <option>7</option>
-                                <option>8</option>
-                                <option>9</option>
-                                <option>10</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-lg-3">
-                            <h5>Pixel Format:</h5>
-                            <select class="form-control" id="pixelFormat">
-                                <option selected="selected" value="0">mono12p</option>
-                                <option value="1">mono10p</option>
-                                <option value="2">mono8p</option>
-                            </select>
-                        </div>
-                        <!--<div class="col-lg-3 padding">-->
-                            <!--<button class="btn btn-info btn-block downloadImagingTask">-->
-                                <!--Download-->
-                            <!--</button>-->
-                        <!--</div>-->
-                    </div>
-
-                <!--DOWNLINK TASK HERE-->
-
-                    <div class="col-lg-12 border-bottom m-b-sm">
-                        <h4>Download Downlink Task</h4>
-                    </div>
-                    <div class="row">
-                        <div class="row padding">
-                            <div class="form-group col-lg-3">
-                                <h5>Preamble Amount:</h5>
-                                <select class="form-control" id="preambleAmount">
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option selected="selected">3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <h5>Postamble Amount:</h5>
-                                <select class="form-control" id="postambleAmount">
-                                    <option selected="selected">2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                    <option>7</option>
-                                    <option>8</option>
-                                    <option>9</option>
-                                    <option>10</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <h5>Frequency (MHz): </h5>
-                                <input class="form-control" type="number" id="frequency" min="2200" max="2290" value="2290">
-                            </div>
-
-                            <div class="form-group col-lg-3">
-                                <h5>SPS:</h5>
-                                <select class="form-control" id="sps">
-                                    <option selected="selected">2</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>8</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="row padding">
-                            <div class="form-group col-lg-3">
-                                <h5>Modulation:</h5>
-                                <select class="form-control" id="modulation">
-                                    <option value ="0" selected="selected">bpsk</option>
-                                    <option value="1">qpsk</option>
-                                </select>
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <h5>txGain(dB): </h5>
-                                <input class="form-control" type="number" id="txGain" min="2200" max="50" value="89.8">
-                            </div>
-                            <div class="form-group col-lg-3">
-                                <h5>arbDL:</h5>
-                                <select class="form-control" id="arbdl">
-                                    <option selected="selected" value="0">Non-arbitrary</option>
-                                    <option value="1">Arbitrary</option>
-                                    <option value="2">Multiple</option>
-                                </select>
-                            </div>
-
-                            <div class="col-lg-3 padding">
+                            <div class="col-lg-8">
                                 <!--<button class="btn btn-info btn-block downloadDownlinkTask">-->
                                     <!--Download-->
                                 <!--</button>-->
-
-                                <button class="btn btn-info btn-block downloadTask">
+                                <button class="btn btn-info btn-block downloadTask" style="font-weight: bold;">
                                     Download
                                 </button>
-
                             </div>
-                        </div>
+                            <div class="col-lg-4">
+                                <button class="btn btn-info btn-block editDownloadTask" style="font-weight: bold;">
+                                    Edit
+                                </button>
+                            </div>
                     </div>
-
-
-
+                    </div>
+                </div>
                 {{/panel}}
             </div>
-        </div>
 
-        <div class="row">
+        </div>
+<div class="row">
             <div class="col-lg-12">
                 {{#panel}}
                     <div class="row">
@@ -309,7 +114,8 @@
 
                 {{/panel}}
             </div>
-        </div>
+</div>
+
 
         <!--<div class="row">-->
         <!--<div class="col-lg-12">-->
@@ -525,7 +331,7 @@
 
 
 
-
     </div>
+
 
 </template>
