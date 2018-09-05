@@ -903,6 +903,14 @@ Template.Tasking.events({
         //satNextPass();
     },
 
+    'click .infoPasses' (event, instance){
+        if (coordsPrint.length == 0) {
+            alert("Please plan a task first!");
+        }
+        var elmnt = document.getElementById("viewPasses");
+        elmnt.scrollIntoView();
+    },
+
     'click .editPlanTaskDetails'(event, instance){
 
         popupS.confirm({
