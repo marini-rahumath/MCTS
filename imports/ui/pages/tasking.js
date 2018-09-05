@@ -907,7 +907,7 @@ Template.Tasking.events({
         if (coordsPrint.length == 0) {
             alert("Please plan a task first!");
         }
-        var elmnt = document.getElementById("viewPasses");
+        var elmnt = document.getElementById("ground_station_passes");
         elmnt.scrollIntoView();
     },
 
