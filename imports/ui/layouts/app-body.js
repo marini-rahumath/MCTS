@@ -34,7 +34,7 @@ Template.App_body.onRendered(function(){
     // FIXED SMALL HEADER
     // $('body').addClass('fixed-small-header');
 
-    GoogleMaps.load({key:'AIzaSyC_cgS0dlv0UKMt2yUEHMWCFTxLJPFY-h0', libraries: 'geometry' });
+    GoogleMaps.load({key:'AIzaSyBELhkwld5NXivqK2OqUHTkdsExLc0CBmk', libraries: 'geometry' });
 });
 
 function fixWrapperHeight() {
