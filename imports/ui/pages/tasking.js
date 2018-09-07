@@ -1053,7 +1053,7 @@ Template.Tasking.events({
     'click .editDownloadTask'(event, instance){
         popupS.confirm({
             content:     '                <div class="col-lg-12 border-bottom m-b-sm">\n' +
-                '                        <h4>Download Task</h4>\n' +
+                '                        <h4>Imaging</h4>\n' +
                 '                         </div>\n' +
                 '                        <div class="row">\n' +
                 '                        <div class="form-group col-lg-3">\n' +
@@ -1085,7 +1085,7 @@ Template.Tasking.events({
                 '                        </div>\n' +
                 '                    </div>\n' +
                 '                    <div class="col-lg-12 border-bottom m-b-sm">\n' +
-                '                        <h4>Download Downlink Task</h4>\n' +
+                '                        <h4>Downlink</h4>\n' +
                 '                    </div>\n' +
                 '                    <div class="row">\n' +
                 '                        <div class="row padding">\n' +
@@ -1455,7 +1455,17 @@ Template.Tasking.events({
 
 
 });
+$('#downloadtoottip').tooltip({trigger: 'manual'});
+$('downloadtoottip').click(function(){
+    var tt = $(this);
 
+        tt.tooltip("show");
+
+        setTimeout(function(){
+            tt.tooltip( 'hide' );
+        }, 2000);
+    
+});
 
 
 Template.Tasking.onCreated(function bodyOnCreated() {

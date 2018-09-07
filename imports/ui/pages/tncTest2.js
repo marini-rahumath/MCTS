@@ -5,7 +5,7 @@ import './tncTest2.html';
 import { Template } from 'meteor/templating';
 
 // CSP & Rotor
-var toggleStart = false;
+var toggleCSP = false;
 var toggleRotor = false;
 
 var tncLogLen = 0;
@@ -46,12 +46,12 @@ Template.tncTest2.onRendered(function () {
 	});
 	$( "button#StartCSPButton" ).click(function() {
 		$(this).toggleClass( "toggleStartButtonColour" );
-		if(toggleStart){
+		if(toggleCSP){
 			$(this).text("Start-CSP");
 		}else{
 			$(this).text("Stop-CSP");
 		}
-		toggleStart=!toggleStart;
+		toggleCSP=!toggleCSP;
 	});
 	$(document).ready(function() {
 		Meteor.setTimeout(function(){
@@ -63,7 +63,7 @@ Template.tncTest2.onRendered(function () {
 		}, 1000);
 	});
 	$(document).ready(()=>{
-		var textField = document.getElementById('terminalTextField')
+		var textField = document.getElementById('terminalTextField');
 		textField.focus();
 	})
 });
@@ -71,13 +71,22 @@ Template.tncTest2.onRendered(function () {
 Template.tncTest2.events({
 	// Start CSP-term Button
 	'click .switchCSP'(event, instance){
-		if(toggleStart){
+		if(toggleCSP){
 			console.log("Starting CSP-term");
 			Meteor.call('startCSP', function (err, response) {
 				if(err){
 					console.log("err is "+err)
 				}
-				console.log(response);
+				else {
+                    console.log(response);
+                   if (response = "undefined"){
+                       toggleCSP=!toggleCSP;
+                       Meteor.call('killCSP', function (err, response){
+                           alert("Error with connection");
+                       });
+                   }
+
+                }
 			});
 		}else{
 			console.log('Stopping CSP-term');
@@ -166,14 +175,14 @@ Template.tncTest2.events({
 	        }else if(commandToSend.trim() == 'start'){
 	        	Meteor.call('startCSP', commandToSend, function (err, response) {
 		        	if(err){
-		        		console.log("err is "+err)
+		        		console.log("err is "+err);
 		        	}
 		        	console.log(response);
 		        });
 	        }else if(commandToSend.trim() == 'exit'){
 	        	Meteor.call('killCSP', commandToSend, function (err, response) {
 		        	if(err){
-		        		console.log("err is "+err)
+		        		console.log("err is "+err);
 		        	}
 		        	console.log(response);
 		        });
