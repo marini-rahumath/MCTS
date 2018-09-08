@@ -155,7 +155,7 @@ var mapui = {
         //     draggable:true,
         // });
     }
-}
+};
 
 
 
@@ -421,7 +421,7 @@ var flightPathView = {
 
         return 20;
     },
-}
+};
 
 
 //Two sets of marker - active (main marker) and other markers

@@ -61,7 +61,7 @@ var listOfIndexes = [];
 var listOfIndexes_GS = [];
 var allCoords = [];
 
-
+var minGSduration = 300;
 
 /*
 Gets the Parameters of the selected Satellite
@@ -418,11 +418,13 @@ function getListOfIndexes_GS(coords) { //needed to draw the appropriate flight p
                             });
 
                             //for display purposes
+                            if (((coords[end].date - coords[beginning].date) / 1000) >= minGSduration){
                             timingGS.push({
                                 start: convertEpochTime(coords[beginning].date),
                                 end: convertEpochTime(coords[end].date),
                                 duration: (coords[end].date - coords[beginning].date) / 1000,
                             });
+                            }
 
                             lastAddedBeginning = beginning;
                             lastAddedEnd = end;
@@ -440,6 +442,9 @@ function getListOfIndexes_GS(coords) { //needed to draw the appropriate flight p
 
     console.log(indexes);
     console.log(timingGS);
+
+
+    console.log(timingGS[0].duration);
 
     return indexes;
 }
@@ -1015,6 +1020,21 @@ Template.Tasking.events({
                 '                                </select>\n' +
                 '                            </div>\n' +
                 '                            </div>\n' +
+                '                        <div class="row">\n'+
+                '                            <div class="form-group col-lg-3">\n' +
+                '                                <h5>Min duration in minutes</h5>\n' +
+                '                                <select class="form-control" id="durationGS">\n' +
+                '                                    <option value="240">4</option>\n' +
+                '                                    <option value="300">5</option>\n' +
+                '                                    <option value="360">6</option>\n' +
+                '                                    <option value="420">7</option>\n' +
+                '                                    <option value="480">8</option>\n' +
+                '                                    <option value="540">9</option>\n' +
+                '                                    <option value="600">10</option>\n' +
+                '                                    <option value="0">Any</option>\n' +
+                '                                </select>\n' +
+                '                            </div>\n' +
+                '                          </div>\n' +
                 '                        </div>',
 
             labelOk:     'Save',
@@ -1029,6 +1049,7 @@ Template.Tasking.events({
                 document.getElementById('degGS2').value = degGSTL; // in deg
                 document.getElementById('degGS3').value = degGSBL; // in deg
                 document.getElementById('degGS4').value = degGSBR; // in deg
+                document.getElementById('durationGS').value = minGSduration;
             },
             onSubmit: function() {
                 photosPerPass = document.getElementById('numPhotos').value;
@@ -1040,12 +1061,13 @@ Template.Tasking.events({
                 degGSTL = document.getElementById('degGS2').value; // in deg
                 degGSBL = document.getElementById('degGS3').value; // in deg
                 degGSBR = document.getElementById('degGS4').value; // in deg
+                minGSduration = document.getElementById('durationGS').value;
                 console.log("user saved inputs: " + photosPerPass, numDays, cameraSize, overlapPercentage);
             },
             onClose: function() {
                 console.log("user cancel inputs: " + photosPerPass, numDays, cameraSize, overlapPercentage);
             }
-        });
+                                                                                                                                       });
     },
 
     'click .showTaskCoords'(event, instance){
@@ -1198,6 +1220,7 @@ Template.Tasking.events({
         }
         var date = Math.round((new Date()).getTime() / 1000);
         var downlinkTime = timingGS[0].start.getTime() / 1000;
+        console.log("Downlink Time: " + downlinkTime);
 
 
         // Error Prevention
